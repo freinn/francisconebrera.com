@@ -1,0 +1,27 @@
+Los funtores son útiles para la resolución de muchos problemas, pero insuficientes para otros. En concreto, la obligada conservación del contexto es muy limitante. Por ello, se creó una abstracción que permite encapsular la descripción de computaciones y su posible resultado. Hablamos de la clase de tipos Monad, que consiste en dos funciones:
+
+return: encapsula un valor normal en un contexto monádico.
+bind: extrae información del contexto para realizar una computación que produce un tipo a. Cuando este tipo a se tenga, se usará para crear una mónada del mismo tipo de manera condicional, teniendo en cuenta el valor de a y el contexto del mismo.
+
+return :: a -> Maybe a
+return x  = Just x
+
+(>>=)  :: Maybe a -> (a -> Maybe b) -> Maybe b
+(>>=) m g = case m of
+               Nothing -> Nothing
+               Just x  -> g x
+
+Como vemos, en el operador bind dejamos la posibilidad de que el dato que había en un Just, por la razón que sea se nos convierta en un valor Nothing. Este es el poder de las mónadas, el contexto puede cambiar!! La función que recibe bind, en este caso g, es la que puede cambiar el valor monádico inicial a otro contexto.
+
+Lo principal que hace el operador bind es permitir usar funciones que reciben valores no monádicos para luego crear monádicos "de otra forma" si hace falta.
+
+Información sobre el fichero en la carpeta maybe en este directorio:
+
+La mónada maybe es "propagadora", de modo que si una computación que podría dar:
+
+1) Just x
+2) Nothing
+
+Da Nothing, entonces ese Nothing irá pasando de un bind a otro hasta llegar al final.
+
+La mónada Maybe es abierta en el sentido de que podemos "sacar" los valores que hay "dentro" de la mónada. Otras mónadas, sin embargo no permiten esto.

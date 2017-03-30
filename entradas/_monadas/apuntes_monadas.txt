@@ -1,0 +1,35 @@
+-- Kleisli composition
+(f <=< g) <=< h = f <=< (g <=< h)
+= \x -> do
+    y <- h x
+    z <- g y
+    f z
+
+-- Function composition
+(f . g) . h = f . (g . h)
+
+-- Monad application:
+(f <=< g <=< h) x
+= f =<< (g =<< h x)
+
+-- Function application:
+(f . g . h) x
+= f (g (h x)
+
+-- Reglas de transformación:
+
+a <- m
+e
+
+en
+
+m >>= \a -> e
+
+y
+
+m
+n
+
+en
+
+m >> n

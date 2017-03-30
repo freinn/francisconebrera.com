@@ -1,0 +1,23 @@
+[package]
+name = "web"
+version = "0.1.0"
+authors = ["freinn <freinn@gmail.com>"]
+
+[dependencies]
+rocket = "0.2.0"
+rocket_codegen = "0.2.0"
+tera = "0.7"
+lazy_static = "*"
+serde = "0.9"
+serde_derive = "0.9"
+serde_json = "0.9"
+chrono = { version = "0.3", features = ["serde"] }
+diesel = { version = "0.11", features = ["postgres", "chrono"] }
+diesel_codegen = { version = "0.11", features = ["postgres"] }
+dotenv = "0.8.0"
+base64 = "~0.4.0"
+
+[dependencies.rocket_contrib]
+version = "*"
+default-features = false
+features = ["tera_templates"]

@@ -1,0 +1,25 @@
+{% extends "blog/blog_base" %}
+
+{% block customcss %}
+    {{ super() }}
+{% endblock customcss %}
+
+{% block content %}
+
+    <h1>{{ titulo }}</h1> 
+
+    {{ contenido | safe }}
+
+    <br /><br />
+    <a href="/blog">Blog</a>
+    <br />
+
+{% endblock content %}
+
+{% block gototop %}
+    {{ super() }}
+{% endblock gototop %}
+
+{% block customjavascript %}
+    {{ super() }}
+{% endblock customjavascript %}

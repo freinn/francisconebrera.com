@@ -1,0 +1,13 @@
+{% extends "base" %}
+
+{% block customcss %}
+    <link href="css/rainbow-themes/paraiso-dark.css" rel="stylesheet" type="text/css">
+{% endblock customcss %}
+
+{% block customjavascript %}
+    <script src="js/rainbow-custom.min.js"></script>
+{% endblock customjavascript %}
+
+{% block gototop %}
+    <a href="/blog/#top">Volver arriba</a>
+{% endblock gototop %}

@@ -1,0 +1,20 @@
+{% extends "blog/blog_base" %}
+
+{% block content %}
+
+    <h1>Posts</h1> 
+    <br />
+
+    {% for entrada_blog in entradas_blog %}
+        <h2>
+            <a href="/blog/{{ entrada_blog.titulo_url }}">{{ entrada_blog.titulo }}</a>
+        </h2>
+        <h3>{{ entrada_blog.fecha_publicacion }}</h3>
+        <br/>
+    {% endfor %}
+
+{% endblock content %}
+
+{% block gototop %}
+    {{ super() }}
+{% endblock gototop %}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="es">
+    <!-- muy importante: fuerza a las rutas relativas a empezar desde ahí -->
+    <base href="/">
+    <meta charset="UTF-8">
+    <title>francisconebrera.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/navbar-fixed-top.css">
+    <link rel="stylesheet" href="css/style.css">
+    {% block customcss %}
+    {% endblock customcss %}
+</head>
+
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse mb-4">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand nav-link" href="/">Francisco Nebrera</a>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/portfolio">Portfolio</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="jumbotron">
+            {% block header_ %}
+            {% endblock header_ %}
+            <br />
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div>
+
+    <footer class="text-muted">
+        <div class="container">
+            <p class="float-right">
+                {% block gototop %}
+                {% endblock gototop %}
+            </p>
+            <p>francisconebrera.com &copy; Francisco Nebrera 2017</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/tether.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    {% block customjavascript %}
+    {% endblock customjavascript %}
+</body>
+
+</html>

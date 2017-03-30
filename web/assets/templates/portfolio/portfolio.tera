@@ -1,0 +1,20 @@
+{% extends "base" %}
+
+{% block content %}
+    <h2>Portfolio</h2>
+
+    <p>
+        Soy Graduado en Ingeniería Informática por la Universidad de La Laguna. En este sitio web alojo mi blog, en el cual escribo sobre ciencias de la computación y sobre temas que me parecen interesantes.
+
+        Estoy disponible como freelancer para realizar aplicaciones, sean web o no, en Rust y Javascript. Si me ha encontrado y quiere mis servicios, quizá pueda contratarme.
+    </p>
+
+    <p>
+        <h5>email: freinn AT gmail.com<h5>
+        <h5>linkedin: <a href="https://www.linkedin.com/in/francisco-nebrera-9a8610b8/">Francisco Nebrera's linkedin profile<h5>
+    </p>
+{% endblock content %}
+
+{% block gototop %}
+    <a href="/portfolio/#top">Volver arriba</a>
+{% endblock gototop %}

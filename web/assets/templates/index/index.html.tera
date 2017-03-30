@@ -1,0 +1,14 @@
+{% extends "base" %}
+
+{% block header_ %}
+    <h2>Sitio web de Francisco Nebrera</h2>
+{% endblock header_ %}
+
+{% block content %}
+    <p class="lead">Bienvenido a mi sitio web personal. Aquí podrás encontrar textos míos, información de mis trabajos e información de temas de mi interés. Además incluyo mi portafolio.
+    </p>
+{% endblock content %}
+
+{% block gototop %}
+    <a href="#top">Volver arriba</a>
+{% endblock gototop %}
