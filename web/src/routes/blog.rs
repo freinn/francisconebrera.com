@@ -8,12 +8,18 @@ use tera_template_contexts::*;
 use super::common_utils;
 use security::*;
 
+// html escapes
+// use htmlescape::{encode_minimal};
+// fin html escapes
+
 fn obtener_entradas_blog() -> Vec<EntradaBlog> {
     let file_content = 
-        match file::get_text("../entradas/backtracking-1/backtracking-1.html") {
+        match file::get("../entradas/backtracking-1/backtracking-1.html") {
             Ok(res) => res,
             Err(e) => panic!("{:?}", e),
         };
+
+    let escaped_content = common_utils::my_own_htmlentities_encoding(file_content);
 
     vec![EntradaBlog {
              id_entrada_blog: 1,
@@ -21,7 +27,7 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
              titulo_url: "backtracking-1".to_string(),
              fecha_publicacion: NaiveDate::from_ymd(2015, 8, 14),
              fecha_ultima_edicion: NaiveDate::from_ymd(2017, 3, 29),
-             contenido: file_content,
+             contenido: escaped_content,
              tiempo_de_lectura: 15,
              publicada: true,
          }]

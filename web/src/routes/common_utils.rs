@@ -9,12 +9,22 @@ use chrono;
 
 use itertools::multizip;
 
-// html escapes
-/*
-use escapade::Append;
-use escapade::Escapable;
-*/
-// fin html escapes
+pub fn my_own_htmlentities_encoding(raw_html: &str) -> String {
+    let mut encoded = String::with_capacity(raw_html.len());
+
+    for c in raw_html.chars() {
+        encoded.push_str(match c {
+            '<' => "&lt",
+            '>' => "&gt",
+            '&' => "&amp",
+            '\"' => "&quot;",
+            '\'' => "&apos;",
+            any_other_car => any_other_car,
+        });
+    }
+
+    encoded
+}
 
 pub fn from_spanish_title_to_url_compatible(titulo_en_espanol: &str) -> String {
     let titulo_lowercase = titulo_en_espanol.trim().to_string().to_lowercase();

@@ -6,7 +6,6 @@ authors = ["freinn <freinn@gmail.com>"]
 [dependencies]
 rocket = "0.2"
 rocket_codegen = "0.2"
-# tera = "0.8"
 lazy_static = "*"
 serde = "0.9"
 serde_derive = "0.9"
@@ -14,7 +13,6 @@ serde_json = "0.9"
 chrono = { version = "0.3", features = ["serde"] }
 itertools = "0.5.9"
 regex = "0.2"
-# escapade = "*"
 file = "*"
 
 [dependencies.rocket_contrib]

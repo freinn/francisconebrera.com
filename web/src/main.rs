@@ -12,7 +12,7 @@ extern crate serde_json;
 extern crate regex;
 extern crate chrono;
 extern crate file;
-// extern crate escapade;
+// extern crate htmlescape;
 
 #[macro_use] extern crate serde_derive;
 #[macro_use] extern crate lazy_static;
@@ -23,8 +23,6 @@ mod security;
 mod tera_template_contexts;
 
 fn main() {
-    // println!("{:?}", chrono::offset::utc::UTC::now().naive_utc().date());
-
     rocket::ignite().mount("/", routes![
         routes::secciones_simples::get_index,
         routes::secciones_simples::get_portfolio,
