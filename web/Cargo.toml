@@ -14,6 +14,7 @@ chrono = { version = "0.3", features = ["serde"] }
 itertools = "0.5.9"
 regex = "0.2"
 file = "*"
+htmlescape = "*"
 
 [dependencies.rocket_contrib]
 version = "*"
