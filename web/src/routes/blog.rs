@@ -8,8 +8,10 @@ use tera_template_contexts::*;
 use super::common_utils;
 use security::*;
 
+use std::str;
+
 // html escapes
-// use htmlescape::{encode_minimal};
+use htmlescape::{encode_minimal};
 // fin html escapes
 
 fn obtener_entradas_blog() -> Vec<EntradaBlog> {
@@ -19,7 +21,8 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
             Err(e) => panic!("{:?}", e),
         };
 
-    let escaped_content = common_utils::my_own_htmlentities_encoding(file_content);
+    let file_content_as_slice = str::from_utf8(file_content.as_slice());
+    let escaped_content = encode_minimal(str::from_utf8(file_content_as_slice.unwrap().as_bytes()).unwrap());
 
     vec![EntradaBlog {
              id_entrada_blog: 1,

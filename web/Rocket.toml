@@ -1,5 +1,5 @@
 [development]
 template_dir = "assets/templates"
 
-[development]
+[production]
 template_dir = "assets/templates"
