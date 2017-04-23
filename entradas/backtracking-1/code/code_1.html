@@ -1,0 +1,98 @@
+<pre>
+    <code data-language="c">// compilar activando C++11: g++ -std=c++11 -o main main.cpp
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void imprimirSolucion(vector < vector < char > >& solucion) {
+  for (int i = 0 ; i < solucion.size(); ++i) {
+    for (int j = 0 ; j < solucion[i].size(); ++j) {
+      cout << solucion[i][j];
+    }
+    cout <<endl;
+  }
+} 
+
+void resolverLaberintoBT(vector < vector <char> >& laberinto, vector < vector <bool> > visitada,
+                       vector < vector <char> > solucion, int i, int j) {
+  if (i > 0 && i < laberinto.size() && j > 0 && j < laberinto[0].size()) {
+    if (laberinto[i][j] == 'M') {
+      cout << "Meta alcanzada. Imprimiendo solucion..." << endl;
+      imprimirSolucion(solucion);
+    } else {
+      vector < vector <bool> > anteriorVisitada = visitada;
+      vector < vector <char> > nuevaSolucion;
+      if (laberinto[i - 1][j] != '#' && !visitada[i - 1][j]) { // arriba
+        visitada[i - 1][j] = true;
+        nuevaSolucion = solucion;
+        nuevaSolucion[i - 1][j] = ' ';
+        resolverLaberintoBT(laberinto, visitada, nuevaSolucion, i - 1, j);
+      }
+      if (laberinto[i][j + 1] != '#' && !visitada[i][j + 1]) {  // derecha
+        visitada = anteriorVisitada;
+        visitada[i][j + 1] = true;
+        nuevaSolucion = solucion;
+        nuevaSolucion[i][j + 1] = ' ';
+        resolverLaberintoBT(laberinto, visitada, nuevaSolucion, i, j + 1);
+      }
+      if (laberinto[i + 1][j] != '#' && !visitada[i + 1][j]) { // abajo
+        visitada = anteriorVisitada;
+        visitada[i + 1][j] = true;
+        nuevaSolucion = solucion;
+        nuevaSolucion[i + 1][j] = ' ';
+        resolverLaberintoBT(laberinto, visitada, nuevaSolucion, i + 1, j);
+      }
+      if (laberinto[i][j - 1] != '#' && !visitada[i][j - 1]) { // izquierda
+        visitada = anteriorVisitada;
+        visitada[i][j - 1] = true;
+        nuevaSolucion = solucion;
+        nuevaSolucion[i][j - 1] = ' ';
+        resolverLaberintoBT(laberinto, visitada, nuevaSolucion, i, j - 1);
+      }
+    }
+  }
+}
+
+void resolverLaberinto(vector < vector <char> >& laberinto, vector < vector <bool> > visitada,
+                       vector < vector <char> > solucion, int i, int j) {
+  if (i > 0 && i < laberinto.size() && j > 0 && j < laberinto[0].size()) {
+    solucion[i][j] = ' ';
+    visitada[i][j] = true;
+    resolverLaberintoBT(laberinto, visitada, solucion, i, j);
+  } else {
+    cout << "posición inicial inválida." <<endl;
+  }
+}
+
+int main() {
+  vector< vector <char> > laberinto;
+  laberinto.resize(10);
+
+  // el ratón empieza en la casilla 1 1. Las almohadillas representan muros
+  laberinto[0] = {'#','#','#','#','#','#','#','#','#','#','#','#','#','#'};
+  laberinto[1] = {'#',' ',' ',' ','#',' ',' ',' ',' ',' ',' ','#','#','#'};
+  laberinto[2] = {'#',' ','#',' ','#',' ','#','#','#','#',' ',' ','#','#'};
+  laberinto[3] = {'#',' ','#',' ',' ',' ',' ','#','#','#','#',' ','#','#'};
+  laberinto[4] = {'#',' ','#','#','#','#',' ',' ',' ',' ','#',' ',' ','#'};
+  laberinto[5] = {'#',' ','#','#',' ','#','#','#','#',' ','#','#',' ','#'};
+  laberinto[6] = {'#',' ','#','#',' ',' ',' ',' ','#',' ','#','#',' ','#'};
+  laberinto[7] = {'#',' ',' ',' ',' ','#','#',' ',' ',' ','#','#',' ','#'};
+  laberinto[8] = {'#','#','#','#','#','#','#','#','#',' ',' ',' ',' ','#'};
+  laberinto[9] = {'#','#','#','#','#','#','#','#','#','#','#','#','M','#'};
+
+  vector < vector < char >> solucion;
+  vector < vector < bool >> visitada;
+  solucion.resize(laberinto.size());
+  visitada.resize(laberinto.size());  
+  for (int i = 0 ; i < solucion.size(); ++i) {
+    for (int j = 0 ; j < laberinto[0].size(); ++j) {
+      solucion[i].push_back('#');
+      visitada[i].push_back(false);
+    }
+  }
+
+  resolverLaberinto(laberinto, visitada, solucion, 1, 1);
+}
+    </code>
+</pre>

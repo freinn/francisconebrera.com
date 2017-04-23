@@ -38,104 +38,9 @@
 <p><b>¿Cómo me muevo por el árbol?</b> Es decir, ¿Cómo consigo añadir elementos a mi solución, completándola? En este problema debo generar el espacio de posibles movimientos (arriba, derecha, abajo, izquierda), y, para todas estas posibilidades, añadir al camino candidato a solución aquella casilla a la cual me mueva, marcarla como visitada, y llamar recursivamente a la función de backtracking.</p>
 <p><b>¿Cuándo para el algoritmo?</b> En este problema se para por varias razones: 1) encontramos un muro y no lo podemos atravesar. 2) Hemos llegado a la salida del laberinto ('M'). 3) La casilla a la cual deberíamos ir según el orden ya estaba visitada.</p>
 <p>Una vez todo esto esté resuelto nos saldrá un código parecido a este:</p>
-<pre>
-    <code data-language="c">// compilar activando C++11: g++ -std=c++11 -o main main.cpp
 
-#include <iostream>
-#include <vector>
-using namespace std;
+code_1.html
 
-void imprimirSolucion(vector < vector < char > >& solucion) {
-  for (int i = 0 ; i < solucion.size(); ++i) {
-    for (int j = 0 ; j < solucion[i].size(); ++j) {
-      cout << solucion[i][j];
-    }
-    cout <<endl;
-  }
-} 
-
-void resolverLaberintoBT(vector < vector <char> >& laberinto, vector < vector <bool> > visitada,
-                       vector < vector <char> > solucion, int i, int j) {
-  if (i > 0 && i < laberinto.size() && j > 0 && j < laberinto[0].size()) {
-    if (laberinto[i][j] == 'M') {
-      cout << "Meta alcanzada. Imprimiendo solucion..." << endl;
-      imprimirSolucion(solucion);
-    } else {
-      vector < vector <bool> > anteriorVisitada = visitada;
-      vector < vector <char> > nuevaSolucion;
-      if (laberinto[i - 1][j] != '#' && !visitada[i - 1][j]) { // arriba
-        visitada[i - 1][j] = true;
-        nuevaSolucion = solucion;
-        nuevaSolucion[i - 1][j] = ' ';
-        resolverLaberintoBT(laberinto, visitada, nuevaSolucion, i - 1, j);
-      }
-      if (laberinto[i][j + 1] != '#' && !visitada[i][j + 1]) {  // derecha
-        visitada = anteriorVisitada;
-        visitada[i][j + 1] = true;
-        nuevaSolucion = solucion;
-        nuevaSolucion[i][j + 1] = ' ';
-        resolverLaberintoBT(laberinto, visitada, nuevaSolucion, i, j + 1);
-      }
-      if (laberinto[i + 1][j] != '#' && !visitada[i + 1][j]) { // abajo
-        visitada = anteriorVisitada;
-        visitada[i + 1][j] = true;
-        nuevaSolucion = solucion;
-        nuevaSolucion[i + 1][j] = ' ';
-        resolverLaberintoBT(laberinto, visitada, nuevaSolucion, i + 1, j);
-      }
-      if (laberinto[i][j - 1] != '#' && !visitada[i][j - 1]) { // izquierda
-        visitada = anteriorVisitada;
-        visitada[i][j - 1] = true;
-        nuevaSolucion = solucion;
-        nuevaSolucion[i][j - 1] = ' ';
-        resolverLaberintoBT(laberinto, visitada, nuevaSolucion, i, j - 1);
-      }
-    }
-  }
-}
-
-void resolverLaberinto(vector < vector <char> >& laberinto, vector < vector <bool> > visitada,
-                       vector < vector <char> > solucion, int i, int j) {
-  if (i > 0 && i < laberinto.size() && j > 0 && j < laberinto[0].size()) {
-    solucion[i][j] = ' ';
-    visitada[i][j] = true;
-    resolverLaberintoBT(laberinto, visitada, solucion, i, j);
-  } else {
-    cout << "posición inicial inválida." <<endl;
-  }
-}
-
-int main() {
-  vector< vector <char> > laberinto;
-  laberinto.resize(10);
-
-  // el ratón empieza en la casilla 1 1. Las almohadillas representan muros
-  laberinto[0] = {'#','#','#','#','#','#','#','#','#','#','#','#','#','#'};
-  laberinto[1] = {'#',' ',' ',' ','#',' ',' ',' ',' ',' ',' ','#','#','#'};
-  laberinto[2] = {'#',' ','#',' ','#',' ','#','#','#','#',' ',' ','#','#'};
-  laberinto[3] = {'#',' ','#',' ',' ',' ',' ','#','#','#','#',' ','#','#'};
-  laberinto[4] = {'#',' ','#','#','#','#',' ',' ',' ',' ','#',' ',' ','#'};
-  laberinto[5] = {'#',' ','#','#',' ','#','#','#','#',' ','#','#',' ','#'};
-  laberinto[6] = {'#',' ','#','#',' ',' ',' ',' ','#',' ','#','#',' ','#'};
-  laberinto[7] = {'#',' ',' ',' ',' ','#','#',' ',' ',' ','#','#',' ','#'};
-  laberinto[8] = {'#','#','#','#','#','#','#','#','#',' ',' ',' ',' ','#'};
-  laberinto[9] = {'#','#','#','#','#','#','#','#','#','#','#','#','M','#'};
-
-  vector < vector < char >> solucion;
-  vector < vector < bool >> visitada;
-  solucion.resize(laberinto.size());
-  visitada.resize(laberinto.size());  
-  for (int i = 0 ; i < solucion.size(); ++i) {
-    for (int j = 0 ; j < laberinto[0].size(); ++j) {
-      solucion[i].push_back('#');
-      visitada[i].push_back(false);
-    }
-  }
-
-  resolverLaberinto(laberinto, visitada, solucion, 1, 1);
-}
-</code>
-</pre>
 <h3><b>El problema de las partes de un conjunto:</b></h3>
 <p>Si has estudiado teoría de conjuntos, recordarás al menos el nombre de las partes de un conjunto (también llamado conjunto potencia). Como se acaba de señalar, es un conjunto, que tiene la propiedad especial de contener todos los subconjuntos del conjunto de entrada. Imaginemos que tenemos tres bolas; blanca (B), azul (A) y roja (R), y queremos saber qué subconjuntos de ellas son posibles. Denotaré la ausencia de una bola con una 'X', y su presencia con la letra del color de la bola.</p>
 <ul>
@@ -154,191 +59,47 @@ int main() {
 <p>Como vemos, el árbol se crea en principio con un nodo que está vacío, no contiene ningún elemento. Luego el bactracking empieza a ramificar, y vemos que por un lado añade un 0 a este nodo vacío, dando lugar a un nodo que contiene el 0. Por otra parte, vemos que se crea otra rama que añade el 1 al nodo vacío, en el mismo nivel del árbol. Pero pese a que el dibujo pueda indicar que estas cosas ocurren a la vez, nada más lejos de la realidad. Al hacer una llamada recursiva con la solución tal y como está en ese momento y el 0, se ejecutará primero esta llamada (como dijimos al principio, este árbol se recorre, o se va construyendo de arriba a abajo y de izquierda a derecha). </p>
 <p>El nodo inicial de este árbol nos da un esquema de qué se hará en cada llamada. Vemos en primer lugar que se hacen dos llamadas recursivas en cada nodo, por lo cual tenemos en este caso un árbol binario. </p>
 <p>A continuación se pega el código de un programa C++ completo que resuelve este problema empleando la técnica del backtracking:</p>
-<pre>
-    <code data-language="c">
-#include <iostream>
-using namespace std;
 
-void imprimearray(bool* array, int n)
-{
-    for(int i = 0 ; i < n ; i++)
-        cout << array[i];
-    cout <<endl;
-}
+code_2.html
 
-void subconjuntos(bool* aBinario, int pos, int n) //recibe un array binario, la posición actual y su longitud
-{
-    if(pos < n){
-        for(int i = 0 ; i < 2 ; i++){
-            aBinario[pos] = i;
-            subconjuntos(aBinario, pos + 1, n);
-        }
-    }else imprimearray(aBinario, n);
-}
-
-int main()
-{
-    int n;
-    cout << "Nº de elementos cjto. : "; cin >> n;
-    bool *array = new bool[n];
-    for(int i = 0 ; i < n ; i++)
-        array[i] = false;
-    subconjuntos(array, 0, n);
-}
-    </code>
-</pre>
-
-  <p>El ejemplo anterior resolvía un problema en el cual el modo en el que el árbol se ramifica es fijo, pero, ¿y si quisiéramos que el árbol se ramificara de modo distinto dependiendo del nivel? Añadimos esa pregunta al hecho de que estoy echando barriga...(es la genética, hoyga).</p>
-
-  <h3><b>El problema del vientre plano (¡no te pases de calorías!):</b></h3>
-
-  <a href="img/backtracking-1/comida-sana.jpg"><img src="img/backtracking-1/comida-sana.jpg" alt="comida-sana" class="rounded mx-auto d-block img-fluid"/></a>
-
-  <p>En un mundo donde el hedonismo impera, pero a la vez la gente es cada día más superficial, el señor X (como yo y como tú) se preocupa por su figura. Va a su restaurante favorito y siempre le surge el mismo dilema. ¿Cómo pedir un primero, un segundo, una bebida y un postre, sin pasarse de calorías? Es decir, el señor X busca comer sin pasarse, y el backtracking puede ayudarle a conseguirlo.</p>
-
-  <p>El primer problema que nos surge es saber qué hay disponible para elegir en el restaurante favorito del señor X y cuántas calorías tiene.</p>
-
-  Primeros
-  <ul>
+<p>El ejemplo anterior resolvía un problema en el cual el modo en el que el árbol se ramifica es fijo, pero, ¿y si quisiéramos que el árbol se ramificara de modo distinto dependiendo del nivel? Añadimos esa pregunta al hecho de que estoy echando barriga...(es la genética, hoyga).</p>
+<h3><b>El problema del vientre plano (¡no te pases de calorías!):</b></h3>
+<a href="img/backtracking-1/comida-sana.jpg"><img src="img/backtracking-1/comida-sana.jpg" alt="comida-sana" class="rounded mx-auto d-block img-fluid" /></a>
+<p>En un mundo donde el hedonismo impera, pero a la vez la gente es cada día más superficial, el señor X (como yo y como tú) se preocupa por su figura. Va a su restaurante favorito y siempre le surge el mismo dilema. ¿Cómo pedir un primero, un segundo, una bebida y un postre, sin pasarse de calorías? Es decir, el señor X busca comer sin pasarse, y el backtracking puede ayudarle a conseguirlo.</p>
+<p>El primer problema que nos surge es saber qué hay disponible para elegir en el restaurante favorito del señor X y cuántas calorías tiene.</p>
+Primeros
+<ul>
     <li>puré de papas(149)</li>
     <li>sopa de tomate(234)</li>
-  </ul>
-
-  Segundos
-  <ul>
+</ul>
+Segundos
+<ul>
     <li>arroz a la cubana(396)</li>
     <li>carne con papas(420)</li>
-  </ul>
-
-  Bebidas
-  <ul>
+</ul>
+Bebidas
+<ul>
     <li>coca cola(137)</li>
     <li>appletiser(47)</li>
-  </ul>
-
-  Postres
-  <ul>
+</ul>
+Postres
+<ul>
     <li>kiwi(46)</li>
     <li>tiramisú(420)</li>
     <li>flan de huevo(240)</li>
-  </ul>
-
-  <p>En primer lugar debemos elegir una estructura de datos adecuada para un árbol con distintos tipos de nodos.</p>
-
-  <p>Lo ideal sería crear un array que guarde, respectivamente, la cantidad de primeros, segundos, bebidas y postres disponibles. De este modo, el bucle for que hace las llamadas recursivas no se saldrá de la estructura de datos que contiene las posibles elecciones.</p>
-
-  <p>El programa empezará su ejecución sabiendo que tiene que elegir primeros platos, y con el total de calorías máximas con el que le pedimos el resultado. Una vez ha elegido un primero, debe restar a ese total las calorías que dicho primero tiene, y después a la hora de elegir otro primero, ya estaremos ante otra posibilidad de menú, con lo cual tenemos que volver a sumar el número de calorías que habíamos restado.</p>
-
-  <p>Aquí no acaba la cosa. Nuestras condicines de parada son dos:</p>
-
-  <ul>
+</ul>
+<p>En primer lugar debemos elegir una estructura de datos adecuada para un árbol con distintos tipos de nodos.</p>
+<p>Lo ideal sería crear un array que guarde, respectivamente, la cantidad de primeros, segundos, bebidas y postres disponibles. De este modo, el bucle for que hace las llamadas recursivas no se saldrá de la estructura de datos que contiene las posibles elecciones.</p>
+<p>El programa empezará su ejecución sabiendo que tiene que elegir primeros platos, y con el total de calorías máximas con el que le pedimos el resultado. Una vez ha elegido un primero, debe restar a ese total las calorías que dicho primero tiene, y después a la hora de elegir otro primero, ya estaremos ante otra posibilidad de menú, con lo cual tenemos que volver a sumar el número de calorías que habíamos restado.</p>
+<p>Aquí no acaba la cosa. Nuestras condicines de parada son dos:</p>
+<ul>
     <li>Nos pasamos de calorías en nuestro menú (y lo descartamos)</li>
     <li>hemos completado la elección de los 4 elementos que componen un menú sin pasarnos de calorías (imprimimos por pantalla)</li>
-  </ul>
+</ul>
+<p>A continuación se expone una implementación completa del algoritmo de backtracking para este problema, en C++</p>
 
-  <p>A continuación se expone una implementación completa del algoritmo de backtracking para este problema, en C++</p>
+code_3.html
 
-<pre>
-    <code data-language="c">
-        #include <iostream>
-        #include <vector>
-        #include <string>
-        using namespace std;
-
-        struct Tproducto
-        {
-            string nombre;
-            int calorias;
-        };
-
-        void imprimirMenu (vector < vector <Tproducto> > platos, int p, int s, int b, int po)
-        {
-            int totalcal = platos[0][p].calorias + platos[1][s].calorias + platos[2][b].calorias + platos[3][po].calorias;
-            cout << "primero = " << platos[0][p].nombre << ", calorías = " << platos[0][p].calorias << "\n";
-            cout << "segundo = " << platos[1][s].nombre << ", calorías = " << platos[1][s].calorias << "\n";
-            cout << "bebida = " << platos[2][b].nombre << ", calorías = " << platos[2][b].calorias << "\n";
-            cout << "postre = " << platos[3][po].nombre << ", calorías = " << platos[3][po].calorias <<"\n";
-            cout << "total de calorías = " << totalcal <<endl;
-        }
-
-        /*Supongamos que en cada una de las i=1, 2, ... , n etapas, X(i) puede tomar los valores en el conjunto V(i),
-        Entonces tenemos,
-        BK (X, i)
-        Para todo alfa = 1 hasta Cardinal (V(i)) hacer
-           Sea X(i) = elemento alfa-ésimo de V(i)
-           Si X es factible hasta la posición i entonces
-                        Si i=n entonces Escribir "X es una solución factible"
-                         EOC BK(x, i+1)*/
-
-        void noTePases(vector < vector <Tproducto> > platos, int plato_actual, int tipo,
-                       int p, int s, int b, int po, int cal_restantes, int& posibilidades)
-        {
-            if(plato_actual < 4) {
-                for(tipo = 0 ; tipo < platos[plato_actual].size() ; ++tipo) {
-                    cal_restantes -= platos[plato_actual][tipo].calorias;
-                    switch(plato_actual){
-                        case 0:
-                            p = tipo;
-                        break;
-                        case 1:
-                            s = tipo;
-                        break;
-                        case 2:
-                            b = tipo;
-                        break;
-                        case 3:
-                            po = tipo;
-                        break;
-                    }
-                    if(cal_restantes >= 0) {
-                        noTePases(platos, plato_actual + 1, tipo, p, s, b, po, cal_restantes, posibilidades);
-                    }
-                    cal_restantes += platos[plato_actual][tipo].calorias;
-                }
-            }else{
-                imprimirMenu (platos, p, s, b, po); cout <<endl;
-                ++posibilidades;
-            }
-        }
-
-        int main()
-        {
-            vector < vector <Tproducto> > platos;
-            platos.resize(4);
-
-            platos[0].push_back(Tproducto()); //creamos con el constructor por defecto
-            platos[0][0].nombre = "puré de papas"; platos[0][0].calorias = 149;
-
-            platos[0].push_back(Tproducto());
-            platos[0][1].nombre = "sopa de tomate"; platos[0][1].calorias = 234;
-
-            platos[1].push_back(Tproducto());
-            platos[1][0].nombre = "arroz a la cubana"; platos[1][0].calorias = 396;
-
-            platos[1].push_back(Tproducto());
-            platos[1][1].nombre = "carne con papas"; platos[1][1].calorias = 420;
-
-            platos[2].push_back(Tproducto());
-            platos[2][0].nombre = "coca cola"; platos[2][0].calorias = 137;
-
-            platos[2].push_back(Tproducto());
-            platos[2][1].nombre = "appletiser"; platos[2][1].calorias = 47;
-
-            platos[3].push_back(Tproducto());
-            platos[3][0].nombre = "kiwi"; platos[3][0].calorias = 46;
-
-            platos[3].push_back(Tproducto());
-            platos[3][1].nombre = "tiramisú"; platos[3][1].calorias = 420;
-
-            platos[3].push_back(Tproducto());
-            platos[3][2].nombre = "flan de huevo"; platos[3][2].calorias = 240;
-            int posibles = 0;
-            noTePases(platos, 0, 0, 0, 0, 0, 0, 1000, posibles);
-            cout << "Posibilidades = " << posibles <<endl;
-            return 0;
-        }
-    </code>
-</pre>
 <p>A parte de esto, vemos nuestra variable de posibilidades, que como vemos es un entero que se pasa por referencia. Sirve como un contador global de los menús que cumplen las condiciones de estar completos y no pasarse del número de calorías que le indiquemos al programa y es una técnica común de conteo en funciones de cualquier tipo, pero sobre todo en las recursivas. </p>
 <h3><b>Un problema de combinatoria: formas de obtener sumas tirando dos dados</b></h3>
 <a href="img/backtracking-1/dados.jpg"><img src="img/backtracking-1/dados.jpg" alt="dados" class="rounded mx-auto d-block img-fluid" /></a>
@@ -356,45 +117,13 @@ int main()
 </ul>
 <p>Por tanto, nuestro programa debe saber cuál es N para no pasarse, queremos un conjunto de tiradas (x,y) con x
     <=y , en las cuales la suma sea exactamente N.</p>
-        <p>A la hora de implementar este algoritmo, hice uso de PHP, ya que es el lenguaje que estoy aprendiendo en este momento de cara al trabajo. Es muy versátil y sus arrays actúan en cierto modo como tablas hash, es decir, puedo llenar el índice que yo quiera, exista o no, con lo que quiera. Este programa va añadiendo al array inicial las tiradas que no se pasen de la suma pedida, y su condición de parada es esa misma, pasarse de dicha cantidad. Notar que los arrays en este caso se pasan por valor (o por copia, ya que se trata de argumentos).</p>
-        <p>Este es el fragmento del árbol que se iría generando (el árbol no está completo como en el caso de las partes de un conjunto), que sirve para ejemplificar gráficamente cómo dicho árbol va creciendo. Además, este árbol se corresponde con un algoritmo un poco más tonto, que sólo ejemplifica las posibilidades de tirar dados uno detrás de otro, el algoritmo del código de abajo es un poco más elaborado.</p>
-        <a href="img/backtracking-1/arbol-dados.png"><img src="img/backtracking-1/arbol-dados.png" class="rounded mx-auto d-block img-fluid" alt="arbol-dados" /></a>
-        <p>Sin más dilación expongo el código, el cual se puede mejorar, y este es el ejercicio que dejo al lector.</p>
-        <pre>
-    <code data-language="php">
-        <?php
+<p>A la hora de implementar este algoritmo, hice uso de PHP, ya que es el lenguaje que estoy aprendiendo en este momento de cara al trabajo. Es muy versátil y sus arrays actúan en cierto modo como tablas hash, es decir, puedo llenar el índice que yo quiera, exista o no, con lo que quiera. Este programa va añadiendo al array inicial las tiradas que no se pasen de la suma pedida, y su condición de parada es esa misma, pasarse de dicha cantidad. Notar que los arrays en este caso se pasan por valor (o por copia, ya que se trata de argumentos).</p>
+<p>Este es el fragmento del árbol que se iría generando (el árbol no está completo como en el caso de las partes de un conjunto), que sirve para ejemplificar gráficamente cómo dicho árbol va creciendo. Además, este árbol se corresponde con un algoritmo un poco más tonto, que sólo ejemplifica las posibilidades de tirar dados uno detrás de otro, el algoritmo del código de abajo es un poco más elaborado.</p>
+<a href="img/backtracking-1/arbol-dados.png"><img src="img/backtracking-1/arbol-dados.png" class="rounded mx-auto d-block img-fluid" alt="arbol-dados" /></a>
+<p>Sin más dilación expongo el código, el cual se puede mejorar, y este es el ejercicio que dejo al lector.</p>
 
-        function tirarDadosBT($carasDado, $objetivo, $tiradas, $suma) {
-          if ($suma == $objetivo) {
-            print_r($tiradas);
-          } else {
-            $tiradasAnteriores = $tiradas;
-            for ($dado1 = 1; $dado1 < ($objetivo / 2) + 1 && $dado1 <= $carasDado; $dado1++) {
-              for ($dado2 = 1; $dado2 < $objetivo - $dado1 + 1 && $dado2 <= $carasDado; $dado2++) {
-                $tiradas = $tiradasAnteriores;
-                $tiradasActuales = array(); // es como hacer un clear
-                $nuevaSuma = $suma + $dado1 + $dado2;
-                if ($dado1 <= $dado2 && $nuevaSuma <= $objetivo) {
-                  $tiradasActuales[] = $dado1;
-                  $tiradasActuales[] = $dado2;
-                  array_push($tiradas, $tiradasActuales);
-                  tirarDadosBT($carasDado, $objetivo, $tiradas, $nuevaSuma);
-                }
-              }
-            }
-          }
-        }
+code_4.html
 
-        // recibe las caras del tipo de dado que usaremos y el valor objetivo de la suma de números de caras
-        function tirarDados($carasDado, $objetivo) {
-          $tiradas = [];
-          echo "Formas posibles de tirar dos dados para obtener " . $objetivo . "\n";
-          tirarDadosBT($carasDado, $objetivo, $tiradas, 0);
-        }
-
-        tirarDados(6, 6);
-    </code>
-</pre>
-        <h3><b>Conclusión</b></h3>
-        <p>Me gustaría hacer notar que el backtracking es viable en problemas como los expuestos, en los que los árboles son relativamente pequeños (al menos para un ordenador moderno). Sin embargo, la complejidad del backtracking es exponencial en el tamaño de la entrada, lo cual nos lleva a resultados muy lentos (si no inviables) en problemas como por ejemplo "el tour del caballo" (knight's tour), en el que se intenta calcular la ruta que debería seguir un caballo de ajedrez para pasar por todos los escaques del tablero sólo una vez, dejándolos todos visitados. La implementación en backtracking no es compleja, pero no existe ordenador ni grupo de ordenadores en el mundo que sea capaz de llegar a la solución mediante backtracking, ya que se deberían realizar 8^63 = 784637716923335095479473677900958302012794430558004314112 llamadas recursivas. Sin embargo existen algoritmos mejores que obtienen la solución a este problema en tiempo polinomial (usando divide y vencerás). </p>
-        <p>Si te gustaría llegar un poco más lejos te recomiendo la técnica denominada branch & bound, ramificación y acotación en español, que es la mejora natural del backtracking (se trata de cortar ramas antes de explorarlas, sabiendo que dichas ramas no nos llevarán a soluciones óptimas de nuestro problema, y ello se sabe haciendo uso de las cotas).</p>
+<h3><b>Conclusión</b></h3>
+<p>Me gustaría hacer notar que el backtracking es viable en problemas como los expuestos, en los que los árboles son relativamente pequeños (al menos para un ordenador moderno). Sin embargo, la complejidad del backtracking es exponencial en el tamaño de la entrada, lo cual nos lleva a resultados muy lentos (si no inviables) en problemas como por ejemplo "el tour del caballo" (knight's tour), en el que se intenta calcular la ruta que debería seguir un caballo de ajedrez para pasar por todos los escaques del tablero sólo una vez, dejándolos todos visitados. La implementación en backtracking no es compleja, pero no existe ordenador ni grupo de ordenadores en el mundo que sea capaz de llegar a la solución mediante backtracking, ya que se deberían realizar 8^63 = 784637716923335095479473677900958302012794430558004314112 llamadas recursivas. Sin embargo existen algoritmos mejores que obtienen la solución a este problema en tiempo polinomial (usando divide y vencerás). </p>
+<p>Si te gustaría llegar un poco más lejos te recomiendo la técnica denominada branch & bound, ramificación y acotación en español, que es la mejora natural del backtracking (se trata de cortar ramas antes de explorarlas, sabiendo que dichas ramas no nos llevarán a soluciones óptimas de nuestro problema, y ello se sabe haciendo uso de las cotas).</p>
