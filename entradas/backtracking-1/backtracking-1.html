@@ -39,7 +39,11 @@
 <p><b>¿Cuándo para el algoritmo?</b> En este problema se para por varias razones: 1) encontramos un muro y no lo podemos atravesar. 2) Hemos llegado a la salida del laberinto ('M'). 3) La casilla a la cual deberíamos ir según el orden ya estaba visitada.</p>
 <p>Una vez todo esto esté resuelto nos saldrá un código parecido a este:</p>
 
+<pre>
+    <code data-language="c">
 code_1.html
+    </code>
+</pre>
 
 <h3><b>El problema de las partes de un conjunto:</b></h3>
 <p>Si has estudiado teoría de conjuntos, recordarás al menos el nombre de las partes de un conjunto (también llamado conjunto potencia). Como se acaba de señalar, es un conjunto, que tiene la propiedad especial de contener todos los subconjuntos del conjunto de entrada. Imaginemos que tenemos tres bolas; blanca (B), azul (A) y roja (R), y queremos saber qué subconjuntos de ellas son posibles. Denotaré la ausencia de una bola con una 'X', y su presencia con la letra del color de la bola.</p>
@@ -60,7 +64,11 @@ code_1.html
 <p>El nodo inicial de este árbol nos da un esquema de qué se hará en cada llamada. Vemos en primer lugar que se hacen dos llamadas recursivas en cada nodo, por lo cual tenemos en este caso un árbol binario. </p>
 <p>A continuación se pega el código de un programa C++ completo que resuelve este problema empleando la técnica del backtracking:</p>
 
+<pre>
+    <code data-language="c">
 code_2.html
+    </code>
+</pre>
 
 <p>El ejemplo anterior resolvía un problema en el cual el modo en el que el árbol se ramifica es fijo, pero, ¿y si quisiéramos que el árbol se ramificara de modo distinto dependiendo del nivel? Añadimos esa pregunta al hecho de que estoy echando barriga...(es la genética, hoyga).</p>
 <h3><b>El problema del vientre plano (¡no te pases de calorías!):</b></h3>
@@ -98,7 +106,11 @@ Postres
 </ul>
 <p>A continuación se expone una implementación completa del algoritmo de backtracking para este problema, en C++</p>
 
+<pre>
+    <code data-language="c">
 code_3.html
+    </code>
+</pre>
 
 <p>A parte de esto, vemos nuestra variable de posibilidades, que como vemos es un entero que se pasa por referencia. Sirve como un contador global de los menús que cumplen las condiciones de estar completos y no pasarse del número de calorías que le indiquemos al programa y es una técnica común de conteo en funciones de cualquier tipo, pero sobre todo en las recursivas. </p>
 <h3><b>Un problema de combinatoria: formas de obtener sumas tirando dos dados</b></h3>
@@ -122,7 +134,11 @@ code_3.html
 <a href="img/backtracking-1/arbol-dados.png"><img src="img/backtracking-1/arbol-dados.png" class="rounded mx-auto d-block img-fluid" alt="arbol-dados" /></a>
 <p>Sin más dilación expongo el código, el cual se puede mejorar, y este es el ejercicio que dejo al lector.</p>
 
+<pre>
+    <code data-language="php">
 code_4.html
+    </code>
+</pre>
 
 <h3><b>Conclusión</b></h3>
 <p>Me gustaría hacer notar que el backtracking es viable en problemas como los expuestos, en los que los árboles son relativamente pequeños (al menos para un ordenador moderno). Sin embargo, la complejidad del backtracking es exponencial en el tamaño de la entrada, lo cual nos lleva a resultados muy lentos (si no inviables) en problemas como por ejemplo "el tour del caballo" (knight's tour), en el que se intenta calcular la ruta que debería seguir un caballo de ajedrez para pasar por todos los escaques del tablero sólo una vez, dejándolos todos visitados. La implementación en backtracking no es compleja, pero no existe ordenador ni grupo de ordenadores en el mundo que sea capaz de llegar a la solución mediante backtracking, ya que se deberían realizar 8^63 = 784637716923335095479473677900958302012794430558004314112 llamadas recursivas. Sin embargo existen algoritmos mejores que obtienen la solución a este problema en tiempo polinomial (usando divide y vencerás). </p>

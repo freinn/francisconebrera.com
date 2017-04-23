@@ -1,101 +1,97 @@
-<pre>
-    <code data-language="c">
-        #include <iostream>
-        #include <vector>
-        #include <string>
-        using namespace std;
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
 
-        struct Tproducto
-        {
-            string nombre;
-            int calorias;
-        };
+struct Tproducto
+{
+    string nombre;
+    int calorias;
+};
 
-        void imprimirMenu (vector < vector <Tproducto> > platos, int p, int s, int b, int po)
-        {
-            int totalcal = platos[0][p].calorias + platos[1][s].calorias + platos[2][b].calorias + platos[3][po].calorias;
-            cout << "primero = " << platos[0][p].nombre << ", calorías = " << platos[0][p].calorias << "\n";
-            cout << "segundo = " << platos[1][s].nombre << ", calorías = " << platos[1][s].calorias << "\n";
-            cout << "bebida = " << platos[2][b].nombre << ", calorías = " << platos[2][b].calorias << "\n";
-            cout << "postre = " << platos[3][po].nombre << ", calorías = " << platos[3][po].calorias <<"\n";
-            cout << "total de calorías = " << totalcal <<endl;
-        }
+void imprimirMenu (vector < vector <Tproducto> > platos, int p, int s, int b, int po)
+{
+    int totalcal = platos[0][p].calorias + platos[1][s].calorias + platos[2][b].calorias + platos[3][po].calorias;
+    cout << "primero = " << platos[0][p].nombre << ", calorías = " << platos[0][p].calorias << "\n";
+    cout << "segundo = " << platos[1][s].nombre << ", calorías = " << platos[1][s].calorias << "\n";
+    cout << "bebida = " << platos[2][b].nombre << ", calorías = " << platos[2][b].calorias << "\n";
+    cout << "postre = " << platos[3][po].nombre << ", calorías = " << platos[3][po].calorias <<"\n";
+    cout << "total de calorías = " << totalcal <<endl;
+}
 
-        /*Supongamos que en cada una de las i=1, 2, ... , n etapas, X(i) puede tomar los valores en el conjunto V(i),
-        Entonces tenemos,
-        BK (X, i)
-        Para todo alfa = 1 hasta Cardinal (V(i)) hacer
-           Sea X(i) = elemento alfa-ésimo de V(i)
-           Si X es factible hasta la posición i entonces
-                        Si i=n entonces Escribir "X es una solución factible"
-                         EOC BK(x, i+1)*/
+/*Supongamos que en cada una de las i=1, 2, ... , n etapas, X(i) puede tomar los valores en el conjunto V(i),
+Entonces tenemos,
+BK (X, i)
+Para todo alfa = 1 hasta Cardinal (V(i)) hacer
+   Sea X(i) = elemento alfa-ésimo de V(i)
+   Si X es factible hasta la posición i entonces
+                Si i=n entonces Escribir "X es una solución factible"
+                 EOC BK(x, i+1)*/
 
-        void noTePases(vector < vector <Tproducto> > platos, int plato_actual, int tipo,
-                       int p, int s, int b, int po, int cal_restantes, int& posibilidades)
-        {
-            if(plato_actual < 4) {
-                for(tipo = 0 ; tipo < platos[plato_actual].size() ; ++tipo) {
-                    cal_restantes -= platos[plato_actual][tipo].calorias;
-                    switch(plato_actual){
-                        case 0:
-                            p = tipo;
-                        break;
-                        case 1:
-                            s = tipo;
-                        break;
-                        case 2:
-                            b = tipo;
-                        break;
-                        case 3:
-                            po = tipo;
-                        break;
-                    }
-                    if(cal_restantes >= 0) {
-                        noTePases(platos, plato_actual + 1, tipo, p, s, b, po, cal_restantes, posibilidades);
-                    }
-                    cal_restantes += platos[plato_actual][tipo].calorias;
-                }
-            }else{
-                imprimirMenu (platos, p, s, b, po); cout <<endl;
-                ++posibilidades;
+void noTePases(vector < vector <Tproducto> > platos, int plato_actual, int tipo,
+               int p, int s, int b, int po, int cal_restantes, int& posibilidades)
+{
+    if(plato_actual < 4) {
+        for(tipo = 0 ; tipo < platos[plato_actual].size() ; ++tipo) {
+            cal_restantes -= platos[plato_actual][tipo].calorias;
+            switch(plato_actual){
+                case 0:
+                    p = tipo;
+                break;
+                case 1:
+                    s = tipo;
+                break;
+                case 2:
+                    b = tipo;
+                break;
+                case 3:
+                    po = tipo;
+                break;
             }
+            if(cal_restantes >= 0) {
+                noTePases(platos, plato_actual + 1, tipo, p, s, b, po, cal_restantes, posibilidades);
+            }
+            cal_restantes += platos[plato_actual][tipo].calorias;
         }
+    }else{
+        imprimirMenu (platos, p, s, b, po); cout <<endl;
+        ++posibilidades;
+    }
+}
 
-        int main()
-        {
-            vector < vector <Tproducto> > platos;
-            platos.resize(4);
+int main()
+{
+    vector < vector <Tproducto> > platos;
+    platos.resize(4);
 
-            platos[0].push_back(Tproducto()); //creamos con el constructor por defecto
-            platos[0][0].nombre = "puré de papas"; platos[0][0].calorias = 149;
+    platos[0].push_back(Tproducto()); //creamos con el constructor por defecto
+    platos[0][0].nombre = "puré de papas"; platos[0][0].calorias = 149;
 
-            platos[0].push_back(Tproducto());
-            platos[0][1].nombre = "sopa de tomate"; platos[0][1].calorias = 234;
+    platos[0].push_back(Tproducto());
+    platos[0][1].nombre = "sopa de tomate"; platos[0][1].calorias = 234;
 
-            platos[1].push_back(Tproducto());
-            platos[1][0].nombre = "arroz a la cubana"; platos[1][0].calorias = 396;
+    platos[1].push_back(Tproducto());
+    platos[1][0].nombre = "arroz a la cubana"; platos[1][0].calorias = 396;
 
-            platos[1].push_back(Tproducto());
-            platos[1][1].nombre = "carne con papas"; platos[1][1].calorias = 420;
+    platos[1].push_back(Tproducto());
+    platos[1][1].nombre = "carne con papas"; platos[1][1].calorias = 420;
 
-            platos[2].push_back(Tproducto());
-            platos[2][0].nombre = "coca cola"; platos[2][0].calorias = 137;
+    platos[2].push_back(Tproducto());
+    platos[2][0].nombre = "coca cola"; platos[2][0].calorias = 137;
 
-            platos[2].push_back(Tproducto());
-            platos[2][1].nombre = "appletiser"; platos[2][1].calorias = 47;
+    platos[2].push_back(Tproducto());
+    platos[2][1].nombre = "appletiser"; platos[2][1].calorias = 47;
 
-            platos[3].push_back(Tproducto());
-            platos[3][0].nombre = "kiwi"; platos[3][0].calorias = 46;
+    platos[3].push_back(Tproducto());
+    platos[3][0].nombre = "kiwi"; platos[3][0].calorias = 46;
 
-            platos[3].push_back(Tproducto());
-            platos[3][1].nombre = "tiramisú"; platos[3][1].calorias = 420;
+    platos[3].push_back(Tproducto());
+    platos[3][1].nombre = "tiramisú"; platos[3][1].calorias = 420;
 
-            platos[3].push_back(Tproducto());
-            platos[3][2].nombre = "flan de huevo"; platos[3][2].calorias = 240;
-            int posibles = 0;
-            noTePases(platos, 0, 0, 0, 0, 0, 0, 1000, posibles);
-            cout << "Posibilidades = " << posibles <<endl;
-            return 0;
-        }
-    </code>
-</pre>
+    platos[3].push_back(Tproducto());
+    platos[3][2].nombre = "flan de huevo"; platos[3][2].calorias = 240;
+    int posibles = 0;
+    noTePases(platos, 0, 0, 0, 0, 0, 0, 1000, posibles);
+    cout << "Posibilidades = " << posibles <<endl;
+    return 0;
+}
