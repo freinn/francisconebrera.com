@@ -71,6 +71,8 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
 
     }
 
+    let mut content_string_ocean = get_file_content_as_string("../entradas/guia-the-ocean-hunter/guia-ocean-hunter.html");
+
     vec![EntradaBlog {
              id_entrada_blog: 1,
              titulo: "Backtracking: guía para principantes".to_string(),
@@ -78,6 +80,16 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
              fecha_publicacion: NaiveDate::from_ymd(2015, 8, 14),
              fecha_ultima_edicion: NaiveDate::from_ymd(2017, 3, 29),
              contenido: content_string,
+             tiempo_de_lectura: 15,
+             publicada: true,
+         },
+         EntradaBlog {
+             id_entrada_blog: 2,
+             titulo: "Guía The Ocean Hunter".to_string(),
+             titulo_url: "guia-the-ocean-hunter".to_string(),
+             fecha_publicacion: NaiveDate::from_ymd(2017, 4, 30),
+             fecha_ultima_edicion: NaiveDate::from_ymd(2017, 4, 29),
+             contenido: content_string_ocean,
              tiempo_de_lectura: 15,
              publicada: true,
          }]
@@ -88,7 +100,13 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
 fn vista_entrada_blog(title_url: &str) -> Template {
     let entradas_blog = obtener_entradas_blog();
 
-    Template::render("blog/mostrar_entrada_blog", &entradas_blog[0])
+    for entrada in entradas_blog {
+       if entrada.titulo_url == title_url {
+           return Template::render("blog/mostrar_entrada_blog", &entrada);
+       }
+    }
+
+    Template::render("404", &obtener_entradas_blog()[0])
 }
 
 #[get("/")]

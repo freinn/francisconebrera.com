@@ -15,7 +15,9 @@ void subconjuntos(bool* aBinario, int pos, int n) //recibe un array binario, la 
             aBinario[pos] = i;
             subconjuntos(aBinario, pos + 1, n);
         }
-    }else imprimearray(aBinario, n);
+    } else {
+        imprimearray(aBinario, n);
+    }
 }
 
 int main()

@@ -11,7 +11,7 @@
 
     <p>
         <h5>email: freinn AT gmail.com<h5>
-        <h5>linkedin: <a href="https://www.linkedin.com/in/francisco-nebrera-9a8610b8/">Francisco Nebrera's linkedin profile<h5>
+        <!-- <h5>linkedin: <a href="https://www.linkedin.com/in/francisco-nebrera-9a8610b8/">Francisco Nebrera's linkedin profile<h5> -->
     </p>
 {% endblock content %}
 

@@ -1,31 +1,32 @@
 <?php
 
 function tirarDadosBT($carasDado, $objetivo, $tiradas, $suma) {
-  if ($suma == $objetivo) {
-    print_r($tiradas);
-  } else {
-    $tiradasAnteriores = $tiradas;
-    for ($dado1 = 1; $dado1 < ($objetivo / 2) + 1 && $dado1 <= $carasDado; $dado1++) {
-      for ($dado2 = 1; $dado2 < $objetivo - $dado1 + 1 && $dado2 <= $carasDado; $dado2++) {
-        $tiradas = $tiradasAnteriores;
-        $tiradasActuales = array(); // es como hacer un clear
-        $nuevaSuma = $suma + $dado1 + $dado2;
-        if ($dado1 <= $dado2 && $nuevaSuma <= $objetivo) {
-          $tiradasActuales[] = $dado1;
-          $tiradasActuales[] = $dado2;
-          array_push($tiradas, $tiradasActuales);
-          tirarDadosBT($carasDado, $objetivo, $tiradas, $nuevaSuma);
+    if ($suma == $objetivo) {
+        print_r($tiradas);
+    } else {
+        $tiradasAnteriores = $tiradas;
+        for ($dado1 = 1; $dado1 < ($objetivo / 2) + 1 && $dado1 <= $carasDado; $dado1++) {
+            for ($dado2 = 1; $dado2 < $objetivo - $dado1 + 1 && $dado2 <= $carasDado; $dado2++) {
+                $tiradas = $tiradasAnteriores;
+                $tiradasActuales = array(); // es como hacer un clear
+                $nuevaSuma = $suma + $dado1 + $dado2;
+
+                if ($dado1 <= $dado2 && $nuevaSuma <= $objetivo) {
+                    $tiradasActuales[] = $dado1;
+                    $tiradasActuales[] = $dado2;
+                    array_push($tiradas, $tiradasActuales);
+                    tirarDadosBT($carasDado, $objetivo, $tiradas, $nuevaSuma);
+                }
+            }
         }
-      }
     }
-  }
 }
 
 // recibe las caras del tipo de dado que usaremos y el valor objetivo de la suma de números de caras
 function tirarDados($carasDado, $objetivo) {
-  $tiradas = [];
-  echo "Formas posibles de tirar dos dados para obtener " . $objetivo . "\n";
-  tirarDadosBT($carasDado, $objetivo, $tiradas, 0);
+    $tiradas = [];
+    echo "Formas posibles de tirar dos dados para obtener " . $objetivo . "\n";
+    tirarDadosBT($carasDado, $objetivo, $tiradas, 0);
 }
 
 tirarDados(6, 6);
