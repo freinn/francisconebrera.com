@@ -73,6 +73,8 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
 
     let mut content_string_ocean = get_file_content_as_string("../entradas/guia-the-ocean-hunter/guia-ocean-hunter.html");
 
+    let mut content_string_monada_maybe = get_file_content_as_string("../entradas/monadas/entradaMonadaMaybe.html");
+
     vec![EntradaBlog {
              id_entrada_blog: 1,
              titulo: "Backtracking: guía para principantes".to_string(),
@@ -85,6 +87,16 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
          },
          EntradaBlog {
              id_entrada_blog: 2,
+             titulo: "La mónada Maybe para principantes".to_string(),
+             titulo_url: "monada-maybe-1".to_string(),
+             fecha_publicacion: NaiveDate::from_ymd(2015, 7, 10),
+             fecha_ultima_edicion: NaiveDate::from_ymd(2017, 5, 3),
+             contenido: content_string_monada_maybe,
+             tiempo_de_lectura: 15,
+             publicada: true,
+         },
+         EntradaBlog {
+             id_entrada_blog: 3,
              titulo: "Guía The Ocean Hunter".to_string(),
              titulo_url: "guia-the-ocean-hunter".to_string(),
              fecha_publicacion: NaiveDate::from_ymd(2017, 4, 30),
@@ -92,7 +104,7 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
              contenido: content_string_ocean,
              tiempo_de_lectura: 15,
              publicada: true,
-         }]
+         },]
 }
 
 
@@ -119,8 +131,6 @@ fn get_entradas_blog() -> Template {
         page_title: "Posts".to_string(),
         entradas_blog: results,
     };
-
-    // let serialized = serde_json::to_string(&context).unwrap();
 
     Template::render("blog/blog", &context)
 }

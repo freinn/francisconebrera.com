@@ -2,13 +2,13 @@
 
 {% block content %}
 
-    <h1>Posts</h1> 
+    <h2>Posts</h2> 
     <br />
 
     {% for entrada_blog in entradas_blog %}
-        <h2>
+        <h4>
             <a href="/blog/{{ entrada_blog.titulo_url }}">{{ entrada_blog.titulo }}</a>
-        </h2>
+        </h4>
         <h3>{{ entrada_blog.fecha_publicacion }}</h3>
         <br/>
     {% endfor %}
