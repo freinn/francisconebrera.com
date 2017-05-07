@@ -1,6 +1,7 @@
 # Poner en producción
 
-ROCKET_ENV=production
-cargo build --release
+Ver el script hecho para ello.
 
-Hay que conseguir tirarlo como root para servir por 443 o 80
+# Paquetes necesarios
+
+sudo apt-get install cmake gcc
