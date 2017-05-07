@@ -47,6 +47,7 @@
                 {% block gototop %}
                 {% endblock gototop %}
             </p>
+            <p>Todo el contenido de este sitio es original de Francisco Nebrera, y de su propiedad a no ser que se indique lo contrario en cada publicación.</p>
             <p>francisconebrera.com &copy; Francisco Nebrera 2017</p>
         </div>
     </footer>
