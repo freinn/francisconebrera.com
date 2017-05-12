@@ -32,7 +32,7 @@ fn get_file_content_as_string(path: &str) -> String {
 fn obtener_entradas_blog() -> Vec<EntradaBlog> {
     let mut content_string = get_file_content_as_string("../entradas/backtracking-1/backtracking-1.html");
 
-    println!("content_string = {:?}", content_string);
+    //println!("content_string = {:?}", content_string);
 
     let mut current_path = "".to_string();
     let paths = fs::read_dir("../entradas/backtracking-1/code").unwrap();
@@ -46,7 +46,7 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
         let re = Regex::new(&filename).unwrap();
         let realpath: String = ["../entradas/backtracking-1/code/", &filename].concat();
         let encoded: String = encode_minimal(&get_file_content_as_string(&realpath));
-        println!("encoded = {}", &encoded);
+        //println!("encoded = {}", &encoded);
 
         let content_string2 = content_string;
         content_string = content_string2.replace(&filename, &encoded);
@@ -75,6 +75,8 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
 
     let mut content_string_monada_maybe = get_file_content_as_string("../entradas/monadas/entradaMonadaMaybe.html");
 
+    let mut content_string_guia_meepo = get_file_content_as_string("../entradas/dota2/guia_meepo/guia_meepo.html");
+
     vec![EntradaBlog {
              id_entrada_blog: 1,
              titulo: "Backtracking: guía para principantes".to_string(),
@@ -102,6 +104,16 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
              fecha_publicacion: NaiveDate::from_ymd(2017, 4, 30),
              fecha_ultima_edicion: NaiveDate::from_ymd(2017, 4, 29),
              contenido: content_string_ocean,
+             tiempo_de_lectura: 15,
+             publicada: true,
+         },
+         EntradaBlog {
+             id_entrada_blog: 4,
+             titulo: "Meepo el geomante, guía de abuso".to_string(),
+             titulo_url: "meepo-guia-de-abuso".to_string(),
+             fecha_publicacion: NaiveDate::from_ymd(2017, 5, 30),
+             fecha_ultima_edicion: NaiveDate::from_ymd(2017, 5, 29),
+             contenido: content_string_guia_meepo,
              tiempo_de_lectura: 15,
              publicada: true,
          },]
