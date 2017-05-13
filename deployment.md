@@ -1,20 +1,3 @@
-freinn
-Sergio I can't replicate the issue in a few days
-S
-Sergio (IRC)
-freinn-M: With Linode, you mean?
-
-freinn
-cause I'm at house now and was in the hospital
-maybe
-and linode stole me 10€
-S
-Sergio (IRC)
-Oh, no, I'm sorry to hear that. :(
-
-freinn
-for using nothing
-...........
 I will switch to digitalocean
 S
 Sergio (IRC)
