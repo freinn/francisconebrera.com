@@ -83,3 +83,5 @@ production port is already 80
 freinn
 20:19
 ok
+
+ROCKET_ENV=prod cargo run --release
