@@ -1,6 +1,6 @@
 [production]
 address = "localhost"
-port = 8080
+port = 80
 log = "critical"
 template_dir = "assets/templates"
 
