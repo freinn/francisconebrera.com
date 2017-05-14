@@ -1,6 +1,6 @@
 # Poner en producción
 
-*No funciona, pero vale para aprender*
+*No funciona si eres root, pero vale para aprender*
 
 sudo erases the environment variables that you've set, -E preserves them
 
@@ -14,8 +14,4 @@ ufw allow 80
 
 Ejecutamos esto como root *dicho por sergio*:
 
-ROCKET_ENV=prod cargo run --release
-
-http://wiki.nginx.org/Pitfalls
-http://wiki.nginx.org/QuickStart
-http://wiki.nginx.org/Configuration
+ROCKET_ENV=production cargo run --release
