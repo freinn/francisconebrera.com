@@ -53,7 +53,6 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
     }
 
     // print!("{:?}", filenames);
-
     // let mut fixed_content_string = content_string;
     let mut filenames: Vec<String> = Vec::new();
 
@@ -101,8 +100,8 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
              id_entrada_blog: 3,
              titulo: "Guía The Ocean Hunter".to_string(),
              titulo_url: "guia-the-ocean-hunter".to_string(),
-             fecha_publicacion: NaiveDate::from_ymd(2017, 4, 30),
-             fecha_ultima_edicion: NaiveDate::from_ymd(2017, 4, 29),
+             fecha_publicacion: NaiveDate::from_ymd(2017, 4, 16),
+             fecha_ultima_edicion: NaiveDate::from_ymd(2017, 4, 16),
              contenido: content_string_ocean,
              tiempo_de_lectura: 15,
              publicada: true,
@@ -111,14 +110,13 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
              id_entrada_blog: 4,
              titulo: "Meepo el geomante, guía de abuso".to_string(),
              titulo_url: "meepo-guia-de-abuso".to_string(),
-             fecha_publicacion: NaiveDate::from_ymd(2017, 5, 30),
-             fecha_ultima_edicion: NaiveDate::from_ymd(2017, 5, 29),
+             fecha_publicacion: NaiveDate::from_ymd(2017, 5, 16),
+             fecha_ultima_edicion: NaiveDate::from_ymd(2017, 5, 16),
              contenido: content_string_guia_meepo,
              tiempo_de_lectura: 15,
              publicada: true,
          },]
 }
-
 
 #[get("/<title_url>")]
 fn vista_entrada_blog(title_url: &str) -> Template {
