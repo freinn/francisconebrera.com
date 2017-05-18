@@ -30,6 +30,7 @@ fn get_file_content_as_string(path: &str) -> String {
 }
 
 fn obtener_entradas_blog() -> Vec<EntradaBlog> {
+    /*
     let mut content_string = get_file_content_as_string("../entradas/backtracking-1/backtracking-1.html");
 
     //println!("content_string = {:?}", content_string);
@@ -69,6 +70,9 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
         // fixed_content_string = fixed_content_string2;
 
     }
+    */
+
+    let mut content_string_backtracking1 = get_file_content_as_string("../entradas/backtracking-1/backtracking-1.html");
 
     let mut content_string_ocean = get_file_content_as_string("../entradas/guia-the-ocean-hunter/guia-ocean-hunter.html");
 
@@ -82,7 +86,7 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
              titulo_url: "backtracking-1".to_string(),
              fecha_publicacion: NaiveDate::from_ymd(2015, 8, 14),
              fecha_ultima_edicion: NaiveDate::from_ymd(2017, 3, 29),
-             contenido: content_string,
+             contenido: content_string_backtracking1,
              tiempo_de_lectura: 15,
              publicada: true,
          },

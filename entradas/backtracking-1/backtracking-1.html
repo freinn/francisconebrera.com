@@ -41,7 +41,101 @@
 
 <pre>
     <code data-language="c">
-code_1.html
+// compilar activando C++11: g++ -std=c++11 -o main main.cpp
+
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+void imprimirSolucion(vector &lt; vector &lt; char &gt; &gt;&amp; solucion) {
+    for (int i = 0 ; i &lt; solucion.size(); ++i) {
+        for (int j = 0 ; j &lt; solucion[i].size(); ++j) {
+            cout &lt;&lt; solucion[i][j];
+        }
+        cout &lt;&lt;endl;
+    }
+} 
+
+void resolverLaberintoBT(vector &lt; vector &lt;char&gt; &gt;&amp; laberinto, vector &lt; vector &lt;bool&gt; &gt; visitada,
+    vector &lt; vector &lt;char&gt; &gt; solucion, int i, int j) {
+    if (i &gt; 0 &amp;&amp; i &lt; laberinto.size() &amp;&amp; j &gt; 0 &amp;&amp; j &lt; laberinto[0].size()) {
+        if (laberinto[i][j] == &#x27;M&#x27;) {
+            cout &lt;&lt; &quot;Meta alcanzada. Imprimiendo solucion...&quot; &lt;&lt; endl;
+            imprimirSolucion(solucion);
+        } else {
+            vector &lt; vector &lt;bool&gt; &gt; anteriorVisitada = visitada;
+            vector &lt; vector &lt;char&gt; &gt; nuevaSolucion;
+            if (laberinto[i - 1][j] != &#x27;#&#x27; &amp;&amp; !visitada[i - 1][j]) { // arriba
+                visitada[i - 1][j] = true;
+                nuevaSolucion = solucion;
+                nuevaSolucion[i - 1][j] = &#x27; &#x27;;
+                resolverLaberintoBT(laberinto, visitada, nuevaSolucion, i - 1, j);
+            }
+            if (laberinto[i][j + 1] != &#x27;#&#x27; &amp;&amp; !visitada[i][j + 1]) {  // derecha
+                visitada = anteriorVisitada;
+                visitada[i][j + 1] = true;
+                nuevaSolucion = solucion;
+                nuevaSolucion[i][j + 1] = &#x27; &#x27;;
+                resolverLaberintoBT(laberinto, visitada, nuevaSolucion, i, j + 1);
+            }
+            if (laberinto[i + 1][j] != &#x27;#&#x27; &amp;&amp; !visitada[i + 1][j]) { // abajo
+                visitada = anteriorVisitada;
+                visitada[i + 1][j] = true;
+                nuevaSolucion = solucion;
+                nuevaSolucion[i + 1][j] = &#x27; &#x27;;
+                resolverLaberintoBT(laberinto, visitada, nuevaSolucion, i + 1, j);
+            }
+            if (laberinto[i][j - 1] != &#x27;#&#x27; &amp;&amp; !visitada[i][j - 1]) { // izquierda
+                visitada = anteriorVisitada;
+                visitada[i][j - 1] = true;
+                nuevaSolucion = solucion;
+                nuevaSolucion[i][j - 1] = &#x27; &#x27;;
+                resolverLaberintoBT(laberinto, visitada, nuevaSolucion, i, j - 1);
+            }
+        }
+    }
+}
+
+void resolverLaberinto(vector &lt; vector &lt;char&gt; &gt;&amp; laberinto, vector &lt; vector &lt;bool&gt; &gt; visitada,
+    vector &lt; vector &lt;char&gt; &gt; solucion, int i, int j) {
+    if (i &gt; 0 &amp;&amp; i &lt; laberinto.size() &amp;&amp; j &gt; 0 &amp;&amp; j &lt; laberinto[0].size()) {
+        solucion[i][j] = &#x27; &#x27;;
+        visitada[i][j] = true;
+        resolverLaberintoBT(laberinto, visitada, solucion, i, j);
+    } else {
+        cout &lt;&lt; &quot;posición inicial inválida.&quot; &lt;&lt;endl;
+    }
+}
+
+int main() {
+    vector&lt; vector &lt;char&gt; &gt; laberinto;
+    laberinto.resize(10);
+
+    // el ratón empieza en la casilla 1 1. Las almohadillas representan muros
+    laberinto[0] = {&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;};
+    laberinto[1] = {&#x27;#&#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;};
+    laberinto[2] = {&#x27;#&#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27;#&#x27;};
+    laberinto[3] = {&#x27;#&#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27;#&#x27;};
+    laberinto[4] = {&#x27;#&#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27;#&#x27;};
+    laberinto[5] = {&#x27;#&#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27;#&#x27;};
+    laberinto[6] = {&#x27;#&#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27;#&#x27;};
+    laberinto[7] = {&#x27;#&#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27;#&#x27;};
+    laberinto[8] = {&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27; &#x27;,&#x27;#&#x27;};
+    laberinto[9] = {&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;#&#x27;,&#x27;M&#x27;,&#x27;#&#x27;};
+
+    vector &lt; vector &lt; char &gt;&gt; solucion;
+    vector &lt; vector &lt; bool &gt;&gt; visitada;
+    solucion.resize(laberinto.size());
+    visitada.resize(laberinto.size());  
+    for (int i = 0 ; i &lt; solucion.size(); ++i) {
+        for (int j = 0 ; j &lt; laberinto[0].size(); ++j) {
+            solucion[i].push_back(&#x27;#&#x27;);
+            visitada[i].push_back(false);
+        }
+    }
+
+    resolverLaberinto(laberinto, visitada, solucion, 1, 1);
+}
     </code>
 </pre>
 
@@ -66,7 +160,37 @@ code_1.html
 
 <pre>
     <code data-language="c">
-code_2.html
+#include &lt;iostream&gt;
+using namespace std;
+
+void imprimearray(bool* array, int n)
+{
+    for(int i = 0 ; i &lt; n ; i++)
+        cout &lt;&lt; array[i];
+    cout &lt;&lt;endl;
+}
+
+void subconjuntos(bool* aBinario, int pos, int n) //recibe un array binario, la posición actual y su longitud
+{
+    if(pos &lt; n){
+        for(int i = 0 ; i &lt; 2 ; i++){
+            aBinario[pos] = i;
+            subconjuntos(aBinario, pos + 1, n);
+        }
+    } else {
+        imprimearray(aBinario, n);
+    }
+}
+
+int main()
+{
+    int n;
+    cout &lt;&lt; &quot;Nº de elementos cjto. : &quot;; cin &gt;&gt; n;
+    bool *array = new bool[n];
+    for(int i = 0 ; i &lt; n ; i++)
+        array[i] = false;
+    subconjuntos(array, 0, n);
+}
     </code>
 </pre>
 
@@ -108,7 +232,103 @@ Postres
 
 <pre>
     <code data-language="c">
-code_3.html
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+using namespace std;
+
+struct Tproducto
+{
+    string nombre;
+    int calorias;
+};
+
+void imprimirMenu (vector &lt; vector &lt;Tproducto&gt; &gt; platos, int p, int s, int b, int po)
+{
+    int totalcal = platos[0][p].calorias + platos[1][s].calorias + platos[2][b].calorias + platos[3][po].calorias;
+    cout &lt;&lt; &quot;primero = &quot; &lt;&lt; platos[0][p].nombre &lt;&lt; &quot;, calorías = &quot; &lt;&lt; platos[0][p].calorias &lt;&lt; &quot;\n&quot;;
+    cout &lt;&lt; &quot;segundo = &quot; &lt;&lt; platos[1][s].nombre &lt;&lt; &quot;, calorías = &quot; &lt;&lt; platos[1][s].calorias &lt;&lt; &quot;\n&quot;;
+    cout &lt;&lt; &quot;bebida = &quot; &lt;&lt; platos[2][b].nombre &lt;&lt; &quot;, calorías = &quot; &lt;&lt; platos[2][b].calorias &lt;&lt; &quot;\n&quot;;
+    cout &lt;&lt; &quot;postre = &quot; &lt;&lt; platos[3][po].nombre &lt;&lt; &quot;, calorías = &quot; &lt;&lt; platos[3][po].calorias &lt;&lt;&quot;\n&quot;;
+    cout &lt;&lt; &quot;total de calorías = &quot; &lt;&lt; totalcal &lt;&lt;endl;
+}
+
+/*Supongamos que en cada una de las i=1, 2, ... , n etapas, X(i) puede tomar los valores en el conjunto V(i),
+Entonces tenemos,
+BK (X, i)
+Para todo alfa = 1 hasta Cardinal (V(i)) hacer
+   Sea X(i) = elemento alfa-ésimo de V(i)
+   Si X es factible hasta la posición i entonces
+                Si i=n entonces Escribir &quot;X es una solución factible&quot;
+                 EOC BK(x, i+1)*/
+
+void noTePases(vector &lt; vector &lt;Tproducto&gt; &gt; platos, int plato_actual, int tipo,
+               int p, int s, int b, int po, int cal_restantes, int&amp; posibilidades)
+{
+    if(plato_actual &lt; 4) {
+        for(tipo = 0 ; tipo &lt; platos[plato_actual].size() ; ++tipo) {
+            cal_restantes -= platos[plato_actual][tipo].calorias;
+            switch(plato_actual){
+                case 0:
+                    p = tipo;
+                break;
+                case 1:
+                    s = tipo;
+                break;
+                case 2:
+                    b = tipo;
+                break;
+                case 3:
+                    po = tipo;
+                break;
+            }
+            if(cal_restantes &gt;= 0) {
+                noTePases(platos, plato_actual + 1, tipo, p, s, b, po, cal_restantes, posibilidades);
+            }
+            cal_restantes += platos[plato_actual][tipo].calorias;
+        }
+    }else{
+        imprimirMenu (platos, p, s, b, po); cout &lt;&lt;endl;
+        ++posibilidades;
+    }
+}
+
+int main()
+{
+    vector &lt; vector &lt;Tproducto&gt; &gt; platos;
+    platos.resize(4);
+
+    platos[0].push_back(Tproducto()); //creamos con el constructor por defecto
+    platos[0][0].nombre = &quot;puré de papas&quot;; platos[0][0].calorias = 149;
+
+    platos[0].push_back(Tproducto());
+    platos[0][1].nombre = &quot;sopa de tomate&quot;; platos[0][1].calorias = 234;
+
+    platos[1].push_back(Tproducto());
+    platos[1][0].nombre = &quot;arroz a la cubana&quot;; platos[1][0].calorias = 396;
+
+    platos[1].push_back(Tproducto());
+    platos[1][1].nombre = &quot;carne con papas&quot;; platos[1][1].calorias = 420;
+
+    platos[2].push_back(Tproducto());
+    platos[2][0].nombre = &quot;coca cola&quot;; platos[2][0].calorias = 137;
+
+    platos[2].push_back(Tproducto());
+    platos[2][1].nombre = &quot;appletiser&quot;; platos[2][1].calorias = 47;
+
+    platos[3].push_back(Tproducto());
+    platos[3][0].nombre = &quot;kiwi&quot;; platos[3][0].calorias = 46;
+
+    platos[3].push_back(Tproducto());
+    platos[3][1].nombre = &quot;tiramisú&quot;; platos[3][1].calorias = 420;
+
+    platos[3].push_back(Tproducto());
+    platos[3][2].nombre = &quot;flan de huevo&quot;; platos[3][2].calorias = 240;
+    int posibles = 0;
+    noTePases(platos, 0, 0, 0, 0, 0, 0, 1000, posibles);
+    cout &lt;&lt; &quot;Posibilidades = &quot; &lt;&lt; posibles &lt;&lt;endl;
+    return 0;
+}
     </code>
 </pre>
 
@@ -136,7 +356,38 @@ code_3.html
 
 <pre>
     <code data-language="php">
-code_4.html
+&lt;?php
+
+function tirarDadosBT($carasDado, $objetivo, $tiradas, $suma) {
+    if ($suma == $objetivo) {
+        print_r($tiradas);
+    } else {
+        $tiradasAnteriores = $tiradas;
+        for ($dado1 = 1; $dado1 &lt; ($objetivo / 2) + 1 &amp;&amp; $dado1 &lt;= $carasDado; $dado1++) {
+            for ($dado2 = 1; $dado2 &lt; $objetivo - $dado1 + 1 &amp;&amp; $dado2 &lt;= $carasDado; $dado2++) {
+                $tiradas = $tiradasAnteriores;
+                $tiradasActuales = array(); // es como hacer un clear
+                $nuevaSuma = $suma + $dado1 + $dado2;
+
+                if ($dado1 &lt;= $dado2 &amp;&amp; $nuevaSuma &lt;= $objetivo) {
+                    $tiradasActuales[] = $dado1;
+                    $tiradasActuales[] = $dado2;
+                    array_push($tiradas, $tiradasActuales);
+                    tirarDadosBT($carasDado, $objetivo, $tiradas, $nuevaSuma);
+                }
+            }
+        }
+    }
+}
+
+// recibe las caras del tipo de dado que usaremos y el valor objetivo de la suma de números de caras
+function tirarDados($carasDado, $objetivo) {
+    $tiradas = [];
+    echo &quot;Formas posibles de tirar dos dados para obtener &quot; . $objetivo . &quot;\n&quot;;
+    tirarDadosBT($carasDado, $objetivo, $tiradas, 0);
+}
+
+tirarDados(6, 6);
     </code>
 </pre>
 
