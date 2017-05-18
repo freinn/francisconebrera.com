@@ -11,6 +11,11 @@ pre {
     margin-bottom: 2%;
 }
 
+.imagen_lenguaje {
+    height: 256px; 
+    width: 256px;
+}
+
 /*
 img {
     margin-top: 2%;

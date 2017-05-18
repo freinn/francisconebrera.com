@@ -1,11 +1,16 @@
 {% extends "base" %}
 
 {% block header_ %}
-    <h2>Sitio web de Francisco Nebrera</h2>
+    <div class="text-center">
+        <h2>Sitio web de Francisco Nebrera</h2>
+    </div>
 {% endblock header_ %}
 
 {% block content %}
-    <p class="lead">Bienvenido a mi sitio web personal. Aquí podrás encontrar textos míos, información de mis trabajos e información de temas de mi interés. Además incluyo mi portafolio.
+
+    <img src="img/fotos-mias/foto_puente_serrador.jpg" class="rounded mx-auto d-block img-fluid">
+
+    <p class="lead text-center">Bienvenido a mi sitio web personal. Aquí podrás encontrar <a href="/blog">mi blog</a>, y mi <a href="/portfolio">portfolio</a>.
     </p>
 {% endblock content %}
 
