@@ -18,8 +18,7 @@ Pues en realidad hay infinitas. Otra cosa es que mónadas con contextos monstruo
 Lo primero que debemos saber es qué es un tipo de Haskell y cómo se declara:
 
 <pre>
-    <code data-language="haskell">
-data Maybe a = Nothing
+    <code data-language="haskell">data Maybe a = Nothing
              | Just a
              deriving Show
     </code>
@@ -34,8 +33,7 @@ La última declaración es <b>deriving Show</b> y no es otra cosa que decirle al
 Es decir, podemos crear valores de tipo <strong>Maybe a</strong> como los siguientes:
 
 <pre>
-    <code data-language="haskell">
-Just False :: Maybe Bool
+    <code data-language="haskell">Just False :: Maybe Bool
 Just 15 :: Maybe Int
 Just "Fran" :: Maybe String
 Just (Just 42) :: Maybe (Maybe Int)
@@ -56,8 +54,7 @@ Un ejemplo sencillo de currificación es el siguiente:
 Si definimos la función <strong>sumar</strong>, vemos que tiene 2 parámetros de tipo <strong>Int</strong> y devuelve un valor de tipo <strong>Int</strong>:
 
 <pre>
-    <code data-language="haskell">
-sumar :: Int -> Int -> Int
+    <code data-language="haskell">sumar :: Int -> Int -> Int
 sumar x y = x + y
     </code>
 </pre>
@@ -67,16 +64,14 @@ Esto está muy bien, con la salvedad de que es mentira (sí, me encanta mentir e
 En Haskell, <strong>las declaraciones de tipos de funciones asocian a derechas</strong> y este código es perfectamente válido:
 
 <pre>
-    <code data-language="haskell">
-sumar :: Int -> (Int -> Int)
+    <code data-language="haskell">sumar :: Int -> (Int -> Int)
 sumar x y = x + y
 </code></pre>
 
 Es decir, tenemos una función que, cuando recibe un <strong>Int</strong>, nos devuelve <strong>otra función de tipo (Int -> Int)</strong>:
 
 <pre>
-    <code data-language="haskell">
-sumar10 :: Int -> Int
+    <code data-language="haskell">sumar10 :: Int -> Int
 sumar10 = sumar 10
 
 -- *Main> sumar10 43
@@ -87,8 +82,7 @@ sumar10 = sumar 10
 Como vemos, en la currificación, lo que hacemos es "comernos" parámetros que están a la izquierda en la declaración de tipos de la función  (esto nos hace recordar que la aplicación de funciones en Haskell asocia a izquierdas), hemos pasado de <strong>sumar :: Int -> Int -> Int</strong> a <strong>sumar10 :: Int -> Int</strong>. Como vemos, currificar en realidad es fijar parámetros de una función para obtener otra, que luego aplicamos a los parámetros que falten para conseguir un resultado.
 
 <pre>
-    <code data-language="haskell">
-division :: Int -> Int -> Maybe Int
+    <code data-language="haskell">division :: Int -> Int -> Maybe Int
 division _ 0 = Nothing
 division x y = Just (x `div` y)
     </code>
@@ -97,16 +91,14 @@ division x y = Just (x `div` y)
 Necesitaremos la función <strong>flip</strong> para poder currificar una división de manera conveniente. Lo único que hace <strong>flip</strong> es cambiar el orden de sus argumentos en la aplicación de la función:
 
 <pre>
-    <code data-language="haskell">
-flip :: (a -> b -> c) -> b -> a -> c
+    <code data-language="haskell">flip :: (a -> b -> c) -> b -> a -> c
 flip f x y =  f y x
 </code></pre>
 
 Haciendo uso de <strong>flip</strong>, podemos <strong>fijar el denominador</strong> (esto es muy importante, al usar <strong>flip</strong> estamos currificando sobre el segundo parámetro de <strong>division</strong>) y definir la función <strong>dividirEntreDos</strong>:
 
 <pre>
-    <code data-language="haskell">
-dividirEntreDos :: Int -> Maybe Int
+    <code data-language="haskell">dividirEntreDos :: Int -> Maybe Int
 dividirEntreDos = flip division 2
 
 dividirEntreCero :: Int -> Maybe Int
@@ -126,8 +118,7 @@ Importante pregunta, tan importante como difícil de explicar. Las mónadas son 
 Si queremos que nuestro tipo sea instancia de la clase de tipos <strong>Monad</strong>, debemos definir dos funciones:
 
 <pre>
-    <code data-language="haskell">
-class Monad m where  
+    <code data-language="haskell">class Monad m where  
     return :: a -> m a  
   
     (>>=) :: m a -> (a -> m b) -> m b  
@@ -137,15 +128,13 @@ class Monad m where
 Al ver la palabra <strong>return</strong>, puede que pienses que la función acabará cuando llamemos a <strong>return</strong>. Nada más lejos de la realidad. La función <strong>return</strong> sólo envuelve un valor "normal", es decir, no monádico, en un contexto monádico. Veamos la definición de <strong>return</strong> para <strong>Maybe</strong>:
 
 <pre>
-    <code data-language="haskell">
-return x = (Just x)
+    <code data-language="haskell">return x = (Just x)
 </code></pre>
 
 Ahora llegamos a la parte interesante, la clase de tipos Monad define un operador llamado 'bind' (ligar) que puedes ver en la declaración de la clase de tipos <strong>Monad</strong> un poco más arriba. La intención de bind es componer funciones que actúen sobre mónadas, dejando todo el tinglado preparado para que se pueda seguir computando en cadena. Esto tiene como consecuencia un cambio de contexto sucesivo, y es algo que los funtores por ejemplo no permiten (siempre conservan intacto su contexto). Tenemos que tener muy presente la declaración de tipos genérica para bind <strong>(>>=) :: m a -> (a -> m b) -> m b</strong>, y cambiar esa <strong>m</strong> (mónada) que vemos ahí por nuestro tipo, en este caso Maybe: <strong>(>>=) :: Maybe a -> (a -> Maybe b) -> Maybe b</strong>. Veamos el código de bind: 
 
 <pre>
-    <code data-language="haskell">
-(>>=) :: m a -> (a -> m b) -> m b
+    <code data-language="haskell">(>>=) :: m a -> (a -> m b) -> m b
 (>>=) (Just x) f = f x     -- la computación se producirá normalmente (aunque puede que dé un Nothing al ejecutar f)
 (>>=) Nothing  f = Nothing -- la computación no se puede realizar y se propaga el resultado
 </code></pre>
@@ -161,8 +150,7 @@ Esta es la idea clave de las mónadas. Es una composición de funciones que tien
 A partir de GHC 7.10, para instanciar un tipo en la clase de tipos <strong>Monad</strong> debemos instanciarlo primero en la clase de tipos <strong>Functor</strong> y en la clase de tipos <strong>Applicative</strong>. Como este post no trata de funtores ni funtores aplicativos, sólo pondré la instancia para que puedas compilar un ejemplo completo: 
 
 <pre>
-    <code data-language="haskell">
-import Prelude hiding (Maybe, Nothing, Just)
+    <code data-language="haskell">import Prelude hiding (Maybe, Nothing, Just)
 
 data Maybe a = Nothing
              | Just a
@@ -181,8 +169,7 @@ instance Applicative Maybe where
 Ahora haremos uso de nuestra mónada (puedes ver el código completo de este post <a href="https://github.com/freinn/francisconebrera.com/blob/master/monadas/monadaMaybeCompleta.hs" title="undefined" target="_blank">en mi github</a>) para encadenar computaciones que pueden fallar, por ejemplo, las divisiones:
 
 <pre>
-    <code data-language="haskell">
-division :: Int -> Int -> Maybe Int
+    <code data-language="haskell">division :: Int -> Int -> Maybe Int
 division _ 0 = Nothing
 division x y = Just (x `div` y)
 </code></pre>
@@ -194,28 +181,24 @@ El código es simple, las ecuaciones se comprueban de arriba a abajo hasta que u
 La composición de funciones es esencial en Haskell y en todos los lenguajes de programación. Se trata simplemente de ejecutar algo como:
 
 <pre>
-    <code data-language="haskell">
-g . f
+    <code data-language="haskell">g . f
 </code></pre>
 
 Es decir, <strong>g</strong> después de <strong>f</strong>. Primero se aplica a algo la función <strong>f</strong>, y ese resultado pasa a <strong>g</strong>. La función de composición tiene por definición:
 
 <pre>
-    <code data-language="haskell">
-(.) :: (a -> b) -> (b -> c) -> (a -> c)
+    <code data-language="haskell">(.) :: (a -> b) -> (b -> c) -> (a -> c)
 (f . g) x = f (g x)
 </code></pre>
 
 Ahora, intentemos componer algo con nuestro tipo <strong>Maybe</strong>:
 
 <pre>
-    <code data-language="haskell">
-(.) :: (a -> b) -> (b -> c) -> (a -> c)
+    <code data-language="haskell">(.) :: (a -> b) -> (b -> c) -> (a -> c)
 </code></pre>
 
 <pre>
-    <code data-language="haskell">
-(Int -> Maybe Int) -> (Int -> Maybe Int) -> (Int -> Maybe Int)
+    <code data-language="haskell">(Int -> Maybe Int) -> (Int -> Maybe Int) -> (Int -> Maybe Int)
 </code></pre>
 
 Vemos claramente que en este caso, la composición no nos será suficiente, porque la primera función que se ejecutará (<strong>g</strong>) no devuelve un <b>Int</b>, sino un <strong>Maybe Int</strong>.
@@ -223,8 +206,7 @@ Vemos claramente que en este caso, la composición no nos será suficiente, porq
 Por suerte sí que podemos componer funciones que usen la mónada <strong>Maybe</strong>, haciendo llamadas sucesivas y encadenadas de bind con funciones que, a partir de un tipo no monádico nos creen una mónada <strong>Maybe</strong> con el resultado encapsulado, recordemos la definición de bind:
 
 <pre>
-    <code data-language="haskell">
-(>>=) :: m a -> (a -> m b) -> m b
+    <code data-language="haskell">(>>=) :: m a -> (a -> m b) -> m b
 (>>=) (Just x) f = f x     -- la computación se producirá normalmente (aunque puede que dé un Nothing al ejecutar f)
 (>>=) Nothing  f = Nothing -- la computación no se puede realizar y se propaga el resultado
 </code></pre>
@@ -232,8 +214,7 @@ Por suerte sí que podemos componer funciones que usen la mónada <strong>Maybe<
 Esta es la razón principal por la cual la abstracción de las mónadas se creó en la teoría de las categorías y luego pasó a lenguajes como Haskell, componer funciones con un contexto asociado, como por ejemplo:
 
 <pre>
-    <code data-language="haskell">
-sucesionDeDivisiones = (Just 128) >>= dividirEntreDos >>= dividirEntreDos
+    <code data-language="haskell">sucesionDeDivisiones = (Just 128) >>= dividirEntreDos >>= dividirEntreDos
 
 sucesionDeDivisionesConCero = (Just 128) >>= dividirEntreDos >>= dividirEntreCero >>= dividirEntreDos
 </code></pre>
@@ -245,9 +226,9 @@ Espero que haya quedado clara la naturaleza de las mónadas y su intención. En 
 No desesperes, esto ya es lo último, el uso de bind está bien, pero es mucho más cómodo muchas veces hacer uso de la notación do:
 
 <pre><code data-language="haskell">sucesionDeDivisionesDo = do
-numeroInicial <- Just 128
-resultado1 <- dividirEntreDos numeroInicial
-dividirEntreDos resultado1
+    numeroInicial <- Just 128
+    resultado1 <- dividirEntreDos numeroInicial
+    dividirEntreDos resultado1
 </code></pre>
 
 Lo más importante aquí es que las mónadas suelen conseguir <strong>ejecución ordenada</strong>, pues la aplicación sucesiva de bind bebe de acciones anteriores. Además, como decidí no usar lambdas para no sobrecomplicar los ejemplos anteriores, no se vió algo que te pongo como ejercicio, lo que ves en la notación do es que <strong>los resultados de todas las computaciones monádicas se ligan (bind) a nombres</strong>, pudiendo ser potencialmente usados para computaciones futuras.
@@ -288,8 +269,7 @@ Hemos visto varios usos de las mónadas:<br />
 
 Espero que este tutorial te haya servido para comprender las mónadas y qué son en realidad, sin analogías innecesarias. El código completo se encuentra tras el salto:<br /><br />
 
-<pre><code data-language="haskell">
-import Prelude hiding (Maybe, Nothing, Just)
+<pre><code data-language="haskell">import Prelude hiding (Maybe, Nothing, Just)
 
 -- Preliminares
 
