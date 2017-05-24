@@ -4,6 +4,11 @@
     var current_section = re.exec(document.URL)[1];
     var navlinks = document.getElementsByClassName("nav-link");
 
+    if (current_section == '/') {
+        navlinks[1].className += " active";
+        return;
+    }
+
     for (var i = 0; i < navlinks.length; i++) {
         if (re.exec(navlinks[i].href)[1] == current_section) {
             navlinks[i].className += " active";
