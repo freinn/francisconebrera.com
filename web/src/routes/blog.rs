@@ -80,23 +80,25 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
 
     let mut content_string_guia_meepo = get_file_content_as_string("../entradas/dota2/guia_meepo/guia_meepo.html");
 
+    let mut content_string_consejos_para_programadores = get_file_content_as_string("../entradas/consejos-para-programadores/consejos-para-programadores.html");
+
     vec![EntradaBlog {
-             id_entrada_blog: 1,
-             titulo: "Backtracking: guía para principantes".to_string(),
-             titulo_url: "backtracking-1".to_string(),
-             fecha_publicacion: NaiveDate::from_ymd(2015, 8, 14),
-             fecha_ultima_edicion: NaiveDate::from_ymd(2017, 3, 29),
-             contenido: content_string_backtracking1,
-             tiempo_de_lectura: 15,
+             id_entrada_blog: 5,
+             titulo: "Consejos para programadores".to_string(),
+             titulo_url: "consejos-para-programadores".to_string(),
+             fecha_publicacion: NaiveDate::from_ymd(2017, 5, 25),
+             fecha_ultima_edicion: NaiveDate::from_ymd(2017, 5, 25),
+             contenido: content_string_consejos_para_programadores,
+             tiempo_de_lectura: 20,
              publicada: true,
          },
          EntradaBlog {
-             id_entrada_blog: 2,
-             titulo: "La mónada Maybe para principantes".to_string(),
-             titulo_url: "monada-maybe-1".to_string(),
-             fecha_publicacion: NaiveDate::from_ymd(2015, 7, 10),
-             fecha_ultima_edicion: NaiveDate::from_ymd(2017, 5, 3),
-             contenido: content_string_monada_maybe,
+             id_entrada_blog: 4,
+             titulo: "Meepo el geomante, guía de abuso".to_string(),
+             titulo_url: "meepo-guia-de-abuso".to_string(),
+             fecha_publicacion: NaiveDate::from_ymd(2017, 5, 16),
+             fecha_ultima_edicion: NaiveDate::from_ymd(2017, 5, 16),
+             contenido: content_string_guia_meepo,
              tiempo_de_lectura: 15,
              publicada: true,
          },
@@ -111,15 +113,25 @@ fn obtener_entradas_blog() -> Vec<EntradaBlog> {
              publicada: true,
          },
          EntradaBlog {
-             id_entrada_blog: 4,
-             titulo: "Meepo el geomante, guía de abuso".to_string(),
-             titulo_url: "meepo-guia-de-abuso".to_string(),
-             fecha_publicacion: NaiveDate::from_ymd(2017, 5, 16),
-             fecha_ultima_edicion: NaiveDate::from_ymd(2017, 5, 16),
-             contenido: content_string_guia_meepo,
+             id_entrada_blog: 2,
+             titulo: "La mónada Maybe para principantes".to_string(),
+             titulo_url: "monada-maybe-1".to_string(),
+             fecha_publicacion: NaiveDate::from_ymd(2015, 7, 10),
+             fecha_ultima_edicion: NaiveDate::from_ymd(2017, 5, 3),
+             contenido: content_string_monada_maybe,
              tiempo_de_lectura: 15,
              publicada: true,
-         },]
+         },
+         EntradaBlog {
+             id_entrada_blog: 1,
+             titulo: "Backtracking: guía para principantes".to_string(),
+             titulo_url: "backtracking-1".to_string(),
+             fecha_publicacion: NaiveDate::from_ymd(2015, 8, 14),
+             fecha_ultima_edicion: NaiveDate::from_ymd(2017, 3, 29),
+             contenido: content_string_backtracking1,
+             tiempo_de_lectura: 15,
+             publicada: true,
+         }]
 }
 
 #[get("/<title_url>")]
