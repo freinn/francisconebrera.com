@@ -1,5 +1,3 @@
-use chrono::NaiveDate;
-
 use std;
 
 // Para pasar parámetros a Tera
@@ -20,8 +18,8 @@ pub struct EntradaBlog {
     pub id_entrada_blog: i32,
     pub titulo: String,
     pub titulo_url: String,
-    pub fecha_publicacion: NaiveDate,
-    pub fecha_ultima_edicion: NaiveDate,
+    pub fecha_publicacion: String,
+    pub fecha_ultima_edicion: String,
     pub contenido: String,
     pub tiempo_de_lectura: i16, // SmallInt
     pub publicada: bool,
