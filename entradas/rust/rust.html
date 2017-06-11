@@ -1,94 +1,60 @@
-[IMG]https://www.rust-lang.org/logos/rust-logo-blk.svg[/IMG]
+<img src="https://www.rust-lang.org/logos/rust-logo-blk.svg" class="rounded mx-auto d-block img-fluid">
 
-<h3>El lenguaje de programación Rust</h3>
-
-Es un lenguaje de programación compilado creado y mantenido por Mozilla y usado en Firefox y Servo reemplazando a C++, con el rendimiento de C/C++ (en algunos casos superior), que [B]no[/B] es orientado a objetos, pero sí es:<br>
-
+Es un lenguaje de programación compilado creado y mantenido por Mozilla y usado en Firefox y Servo reemplazando a C++, con el rendimiento de C/C++ (en algunos casos superior), que <b>no</b> es orientado a objetos, pero sí es:<br><br>
 
 <ul>
-    <li>multiplataforma: <a href="https://github.com/rust-lang-nursery/rustup.rs/blob/master/README.md"</a></li>
+    <li><a href="https://github.com/rust-lang-nursery/rustup.rs/blob/master/README.md">multiplataforma</a></li>
     <li>tiene un compilador muy llorón (esto es güeno) con un borrow checker muy quisquilloso también</li>
     <li>funcional (soporta la inmutabilidad, las clausuras y el paso de funciones como argumentos con todo lo que esto conlleva)</li>
     <li>imperativo, aunque distinto a los demás por el tema de los moves y los borrows</li>
     <li>muy bueno para programación paralela y concurrente y para hacer sistemas escalables</li>
-    <li><a href=https://en.wikipedia.org/wiki/programming_in_the_large_and_programming_in_the_small">soporte de programming in the large</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/programming_in_the_large_and_programming_in_the_small">soporte de programming in the large</a></li>
     <li>un lenguaje con mucho futuro, y es un gusto programar en él</li>
 </ul>
 
-Incluso se está desarollando un sistema operativo 100% en Rust, llamado <a href=https://github.com/redox-os/redox">Redox</a>
+Incluso se está desarollando un sistema operativo 100% en Rust, llamado <a href="https://github.com/redox-os/redox">Redox</a><br><br>
 
 <h3>Desventajas actuales</h3>
 
-- está [s]verde[/s] desarrollándose muy rápido en sus librerías, [s]sobre todo para programación web[/s] hasta que salió <a href=https://rocket.rs/"]rocket.rs[/URL]
-- no hay mucha oferta de trabajo en este lenguaje por el momento
-- curva de aprendizaje pronunciada (no tanto como Haskell), aunque cada vez hay más recursos interesantes y están trabajando en que la entrada de los novatos sea cada día más fácil.
+<ul>
+    <li>no hay mucha oferta de trabajo en este lenguaje por el momento</li>
+    <li>curva de aprendizaje pronunciada (no tanto como Haskell), aunque cada vez hay más recursos interesantes y están trabajando en que la entrada de los novatos sea cada día más fácil.</li>
+</ul>
 
 <h3>Instalación</h3>
 
-<a href=https://www.rustup.rs/"]https://www.rustup.rs/[/URL]. Funciona en casi cualquier plataforma y está creciendo mucho. Recomiendo familiarizarse cuanto antes con Cargo, el gestor de crates (librerías) de Rust. Es sencillo. Y para resolver conflictos con crates usamos estos dos comandos:
+<a href="https://www.rustup.rs/">rustup.rs</a>. Funciona en casi cualquier plataforma y está creciendo mucho. Recomiendo familiarizarse cuanto antes con Cargo, el gestor de crates (librerías) de Rust. Es sencillo. Y para resolver conflictos con crates usamos estos dos comandos:<br><br>
 
-cargo install cargo-tree // sólo se usa una vez
-cargo tree // en cada proyecto de cargo que tenga problemas de dependencias
+cargo install cargo-tree // sólo se usa una vez<br><br>
+cargo tree // en cada proyecto de cargo que tenga problemas de dependencias<br><br>
 
 <h3>Listado de webs interesantes</h3>
 
-<a href=https://www.rust-lang.org/en-US/index.html"]Web oficial del lenguaje[/URL]
-<a href=https://users.rust-lang.org/"]Foro oficial del lenguaje[/URL]
-<a href=http://arewegameyet.com/"]Are we game yet?[/URL]
-<a href=https://areweideyet.com/"]Are we (I)DE yet?[/URL]
-<a href=http://www.arewewebyet.org/"]Are we web yet?[/URL]
-<a href=http://www.newrustacean.com/"]New rustacean[/URL]
-<a href=https://www.reddit.com/r/rust/"]Subreddit[/URL]
-<a href=https://this-week-in-rust.org/"]This week in rust[/URL]
+<ul>
+    <li><a href="https://www.rust-lang.org/en-US/index.html">Web oficial del lenguaje</a></li>
+    <li><a href="https://users.rust-lang.org/">Foro oficial del lenguaje</a></li>
+    <li><a href="http://arewegameyet.com/">Are we game yet?</a></li>
+    <li><a href="https://areweideyet.com/">Are we (I)DE yet?</a></li>
+    <li><a href="http://www.arewewebyet.org/">Are we web yet?</a></li>
+    <li><a href="http://www.newrustacean.com/">New rustacean</a></li>
+    <li><a href="https://www.reddit.com/r/rust/">Subreddit</a></li>
+    <li><a href="https://this-week-in-rust.org/">This week in rust</a></li>
+</ul>
 
 <h3>Libros recomendados</h3>
 
-<a href=https://github.com/sger/RustBooks"]https://github.com/sger/RustBooks[/URL]
+Personalmente los mejores me parecen "Programming Rust", que es todavía early release pero lo tengo original y <a href="https://doc.rust-lang.org/stable/book/">el libro oficial en su web</a>. Para empezar, recomiendo Programming Rust.<br><br>
 
-Personalmente los mejores me parecen "Programming Rust", que es todavía early release pero lo tengo original y <a href=https://doc.rust-lang.org/stable/book/"]el libro oficial en su web[/URL]. Para empezar, recomiendo Programming Rust.
+Los problemas más comunes al empezar con Rust son los lifetimes, los moves y los borrows, que se explican en estos dos recursos convenientemente, pero recomiendo coger lápiz y papel porque solo leyendo es complicado de entender.<br><br>
 
-Los problemas más comunes al empezar con Rust son los lifetimes, los moves y los borrows, que se explican en estos dos recursos convenientemente, pero recomiendo coger lápiz y papel porque solo leyendo es complicado de entender.
+<a href="https://github.com/sger/RustBooks">Repositorio RustBooks</a><br><br>
 
 <h3>Código de conducta de los rustaceans</h3>
 
-Lo puedes leer <a href=https://www.rust-lang.org/en-US/conduct.html"]aquí[/URL]. Me gustaría bastante que dicho código se respetara siempre en esta plataforma, y por mi parte así lo haré.
-
-<h3>Personalizar bash para trabajar con Rust y Git</h3>
-
-Estas instrucciones son para distros basadas en Debian, yo uso Ubuntu 16.04 LTS:
-
-Necesitamos <a href=https://github.com/jimeh/git-aware-prompt"]git-aware-prompt[/URL] instalado.
-
-Los cambios que haremos serán 3:
-
-1) añadir el comando "cls", que limpia de manera completa bash, dejándola como recién abierta, y no como hacer un clear que sólo mete \n hasta dejarla "limpia", pero conservando su historia.
-
-2) añadir el comando "compilar-rust" que es primero ejecutar cls y luego cargo run, de este modo, obtenemos una consola limpia sólo con los errores de nuestro proyecto actual.
-
-3) Poner color a la shell, mostrando la rama actual de git en la que nos encontremos.
-
-Cuando bash se inicia, coge su configuración del fichero [B]~/.bashrc[/B]
-
-En [B]~/.bashrc[/B] añadimos al final del todo:
-
-alias cls='tput reset'
-alias compilar-rust='cls && cargo run'
-
-parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
-export PS1="\[\033[01;32m\]\u@\h \[\033[01;34m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
-
-Tras realizar cambios sobre este fichero, podemos aplicarlos a la shell actual con:
-
-$ source ~/.bashrc
+Lo puedes leer <a href="https://www.rust-lang.org/en-US/conduct.html">aquí</a>
 
 <h3>Mascota (no oficial) del lenguaje</h3>
 
 Ferris el cangrejo:
 
-[URL=http://www.rustacean.net/assets/rustacean-orig-noshadow.png]
-[IMG]http://www.rustacean.net/assets/rustacean-orig-noshadow.png[/IMG][/URL]
-
-<h3>Shurcrustáceos</h3>
+<img src="http://www.rustacean.net/assets/rustacean-orig-noshadow.png" class="rounded mx-auto d-block img-fluid">
