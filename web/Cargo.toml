@@ -4,8 +4,8 @@ version = "0.1.1"
 authors = ["freinn <freinn@gmail.com>"]
 
 [dependencies]
-rocket = "0.2.5"
-rocket_codegen = "0.2.5"
+rocket = "0.2.8"
+rocket_codegen = "0.2.8"
 lazy_static = "*"
 serde = "0.9"
 serde_derive = "0.9"
