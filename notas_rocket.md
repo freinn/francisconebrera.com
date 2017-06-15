@@ -1,7 +1,5 @@
-# Poner en producción
+# Notas Rocket
 
-Ver el script hecho para ello.
-
-# Paquetes necesarios
+## Paquetes necesarios
 
 sudo apt-get install cmake gcc
