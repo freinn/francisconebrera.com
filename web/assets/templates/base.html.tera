@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/navbar-fixed-top.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <!-- fin favicon -->
+
     {% block customcss %}
     {% endblock customcss %}
 </head>
